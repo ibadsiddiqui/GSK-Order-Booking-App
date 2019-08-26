@@ -4,26 +4,34 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+// import { Provider } from "react-redux";
 
 import AppNavigator from './src/navigation/AppNavigator';
+
+// const store = configureStore();
+
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
+      // <Provider store={store.store}>
       <AppLoading
         startAsync={loadResourcesAsync}
         onError={handleLoadingError}
         onFinish={() => handleFinishLoading(setLoadingComplete)}
       />
+      // </Provider>
     );
   } else {
     return (
+      // <Provider store={store.store}>
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
       </View>
+      // </Provider>
     );
   }
 }
