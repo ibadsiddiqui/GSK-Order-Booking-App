@@ -1,12 +1,35 @@
 import { Dimensions } from 'react-native';
 
-const width = Dimensions.get('window').width;
-const height = Dimensions.get('window').height;
+const { width, height } = Dimensions.get('window');
 
-export default {
+const Layout = {
   window: {
     width,
     height,
   },
   isSmallDevice: width < 375,
+  centered: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  table: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  tableRow: {
+    flex: 1,
+    alignSelf: 'stretch',
+    flexDirection: 'row',
+  },
+  tableCell: {
+    flex: 1,
+    alignSelf: 'stretch',
+  },
+  centeredCell: () => {
+    return { ...Layout.centered, ...Layout.tableCell }
+  }
 };
+
+export default Layout
