@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -67,9 +68,26 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
+const ProductsStack = createStackNavigator(
+  {
+    ProductsList: ProductListScreen,
+  },
+  config
+);
+
+ProductsStack.navigationOptions = {
+  tabBarLabel: 'Products',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name="ios-list" />
+  ),
+};
+
+ProductsStack.path = '';
+
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
+  ProductsStack,
   SettingsStack,
 });
 
