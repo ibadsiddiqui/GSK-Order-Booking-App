@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid/v4');
 
-const Product = [
+const ProductLists = [
     {
         id: uuidv4(),
         name: "ABLE A2A SPACER",
@@ -496,3 +496,5 @@ const Product = [
         mrp: 147.62
     },
 ]
+
+export default ProductLists;
