@@ -1,78 +1,63 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import React from 'react';
-import { Dimensions, FlatList, Text, View } from 'react-native';
+import { Dimensions, FlatList, Text, View, StyleSheet, BackHandler } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { _keyExtractor } from "../../commons/utils";
 import Layout from '../../constants/Layout';
-import ProductLists from "../../constants/ProductsList";
 import { mapDispatchToProps, mapStateToProps } from "../../redux/dispatcher";
+import Colors from "../../constants/Colors";
+import HeaderLeftBtn from "../../components/screen/AddProductToOrder/HeadeLeftBtn";
 const { width } = Dimensions.get('window')
 
+
 class AddProductToOrderScreen extends React.Component {
-
-    addProduct = (item, index) => {
-        const { qty } = this.props.productLists[index];
-        let quantity = 1 + qty;
-        this.setState({
-            ProductLists: this.props.productLists.map((_item, index) => {
-                _item.id === item.id ? {
-                    ...item,
-                    qty: quantity,
-                }
-                    : { ..._item }
-            })
-        })
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Add Products',
+            headerStyle: {
+                backgroundColor: Colors.primary,
+            },
+            headerTintColor: '#fff',
+            headerLeft: <HeaderLeftBtn onPress={() => navigation.navigate('AddNewOrder')} />,
+        }
     }
 
-    minusProduct = (item, index) => {
-        const { qty } = this.props.productLists[index];
-        let quantity = qty - 1;
-
-        this.setState({
-            ProductLists: this.props.productLists.map((_item, index) => {
-                if (_item.id === item.id) {
-                    if (_item.qty >= 1)
-                        return {
-                            ...item,
-                            qty: quantity,
-                        }
-                    else return {
-                        ...item,
-                        qty: 0,
-                    }
-                }
-                else return { ..._item }
-            })
-        })
+    componentDidMount() {
+        this.backhandler = BackHandler.addEventListener('hardwareBackPress', this.goBack)
     }
-    keyExtractor = (item, index) => index.toString();
+
+    componentWillUnmount() {
+        this.backhandler.remove()
+    }
+
+
+    goBack = () => this.props.navigation.navigate("AddNewOrder");
+
+    addProduct = (item) => this.props.addProductCount(item.id);
+
+    minusProduct = (item) => this.props.reduceProductCount(item.id);
 
     render() {
-        console.log('====================================');
-        // console.log(this.props.productLists.filter((item, index) => item.id === 0));
-        console.log('====================================');
+        const { productLists } = this.props;
         return (
             <View style={styles.container}>
-                <Text style={{ flex: 1, fontSize: 17, fontWeight: 'bold', marginTop: 30 }}>Add Products from below:</Text>
                 <View style={{ flex: 8 }}>
-                    <FlatList
-                        style={{ width }}
-                        data={this.props.productLists}
-                        keyExtractor={this.keyExtractor}
+                    <FlatList style={{ width }} data={productLists}
+                        keyExtractor={_keyExtractor}
                         renderItem={({ item, index }) => (
-                            <View key={index} style={{ width: width * 0.8, flexDirection: 'row', width, margin: 5, padding: 10, elevation: 2, borderRadius: 10, borderColor: 'transparent', borderBottomColor: 'gray', borderWidth: 1, }}>
-                                <Text style={{ textAlign: 'left', width: 220 }}>{item.name}</Text>
+                            <View key={index} style={styles.rowContainer}>
+                                <Text style={styles.itemName}>{item.name}</Text>
                                 <View style={{ marginLeft: 40, flexDirection: 'row' }}>
-                                    <TouchableOpacity onPress={() => this.minusProduct(item, index)}>
+                                    <TouchableOpacity onPress={() => this.minusProduct(item)}>
                                         <View>
-                                            <Feather name='minus-circle' size={20} />
+                                            <Feather name='minus-circle' size={25} />
                                         </View>
                                     </TouchableOpacity>
-                                    <Text style={{ textAlign: 'center', marginHorizontal: 10 }}>{item.qty}</Text>
-                                    <TouchableOpacity onPress={() => this.addProduct(item, index)}>
+                                    <Text style={styles.qty}>{item.qty}</Text>
+                                    <TouchableOpacity onPress={() => this.addProduct(item)}>
                                         <View>
-                                            <Ionicons name='md-add-circle-outline' size={20} />
+                                            <Ionicons name='md-add-circle-outline' size={25} />
                                         </View>
 
                                     </TouchableOpacity>
@@ -87,12 +72,26 @@ class AddProductToOrderScreen extends React.Component {
 }
 
 
-const styles = {
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
         ...Layout.table
     },
-};
+    itemName: { textAlign: 'left', width: 220 },
+    qty: { textAlign: 'center', marginHorizontal: 10 },
+    rowContainer: {
+        width: width * 0.8,
+        flexDirection: 'row',
+        width,
+        margin: 5,
+        padding: 10,
+        elevation: 2,
+        borderRadius: 10,
+        borderColor: 'transparent',
+        borderBottomColor: 'gray',
+        borderWidth: 1,
+    }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductToOrderScreen);
