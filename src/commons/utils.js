@@ -1,3 +1,3 @@
 export const _keyExtractor = (item, index) => {
-    return item.id;
+    return item.id.toString();
 };
