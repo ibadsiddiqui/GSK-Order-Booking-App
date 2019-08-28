@@ -6,7 +6,8 @@ import OrdersReducer from './../reducers/OrdersReducer';
 
 const rootReducer = combineReducers({
   //   PIN: PINReducer,
-  orders: OrdersReducer
+  orders: OrdersReducer,
+  products: ProductsReducer,
   //   Registration: RegistrationReducer,
   //   Users: UsersReducer,
   //   Currencies: CurrenciesReducer,
