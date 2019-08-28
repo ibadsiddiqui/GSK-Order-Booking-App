@@ -1,12 +1,13 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
+import AddNewOrder from '../screens/Dashboard/OrderTab/AddOrder';
+import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
+
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -21,7 +22,7 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  // tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -44,7 +45,7 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  // tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
   ),
@@ -59,14 +60,29 @@ const SettingsStack = createStackNavigator(
   config
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+const AddOrderStack = createStackNavigator(
+  {
+
+    AddNewOrder: AddNewOrder,
+  },
+  config
+);
+
+AddOrderStack.navigationOptions = {
+  // tabBarLabel: null,
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name="ios-add-circle-outline" />
   ),
 };
 
-SettingsStack.path = '';
+AddOrderStack.path = '';
+
+AddNewOrder.tabBarOptions = {
+  showLabel: false,
+  showIcon: true,
+  tintColor: '#333',
+  activeTintColor: '#aaa',
+}
 
 const ProductsStack = createStackNavigator(
   {
@@ -76,7 +92,7 @@ const ProductsStack = createStackNavigator(
 );
 
 ProductsStack.navigationOptions = {
-  tabBarLabel: 'Products',
+  // tabBarLabel: 'Products',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name="ios-list" />
   ),
@@ -84,12 +100,27 @@ ProductsStack.navigationOptions = {
 
 ProductsStack.path = '';
 
+SettingsStack.navigationOptions = {
+  // tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  ),
+};
+
+SettingsStack.path = '';
+
+
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
   LinksStack,
+  AddOrderStack,
   ProductsStack,
   SettingsStack,
-});
+}, {
+    tabBarOptions: {
+      showLabel: false
+    }
+  });
 
 tabNavigator.path = '';
 
