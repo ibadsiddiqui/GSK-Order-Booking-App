@@ -1,15 +1,14 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import React from 'react';
-import { Dimensions, FlatList, Text, View, StyleSheet, BackHandler } from 'react-native';
+import { Dimensions, FlatList, Text, View, BackHandler } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { _keyExtractor } from "../../commons/utils";
-import Layout from '../../constants/Layout';
 import { mapDispatchToProps, mapStateToProps } from "../../redux/dispatcher";
 import Colors from "../../constants/Colors";
 import HeaderLeftBtn from "../../components/screen/AddProductToOrder/HeadeLeftBtn";
+import styles from "./styles";
 const { width } = Dimensions.get('window')
-
 
 class AddProductToOrderScreen extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -30,7 +29,6 @@ class AddProductToOrderScreen extends React.Component {
     componentWillUnmount() {
         this.backhandler.remove()
     }
-
 
     goBack = () => this.props.navigation.navigate("AddNewOrder");
 
@@ -70,28 +68,5 @@ class AddProductToOrderScreen extends React.Component {
         );
     }
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        ...Layout.table
-    },
-    itemName: { textAlign: 'left', width: 220 },
-    qty: { textAlign: 'center', marginHorizontal: 10 },
-    rowContainer: {
-        width: width * 0.8,
-        flexDirection: 'row',
-        width,
-        margin: 5,
-        padding: 10,
-        elevation: 2,
-        borderRadius: 10,
-        borderColor: 'transparent',
-        borderBottomColor: 'gray',
-        borderWidth: 1,
-    }
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddProductToOrderScreen);
