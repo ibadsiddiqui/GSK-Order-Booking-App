@@ -17,6 +17,7 @@ export default function App(props) {
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
       <Provider store={store.store}>
+        <StatusBar hidden />
         <AppLoading
           startAsync={loadResourcesAsync}
           onError={handleLoadingError}
@@ -28,6 +29,7 @@ export default function App(props) {
     return (
       <Provider store={store.store}>
         <View style={styles.container}>
+          {Platform.OS === 'android' && <StatusBar hidden />}
           {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
           <AppNavigator />
         </View>
