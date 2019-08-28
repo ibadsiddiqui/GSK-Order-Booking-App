@@ -11,6 +11,13 @@ const { width } = Dimensions.get('window')
 export default class ProductListScreen extends React.Component {
     static navigationOptions = {
         title: 'Products List by GSK',
+        headerStyle: {
+            backgroundColor: Colors.primary,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
     };
 
     onPress(productInfo) {
