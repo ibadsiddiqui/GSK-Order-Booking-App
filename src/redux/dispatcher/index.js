@@ -4,7 +4,7 @@ export const mapStateToProps = (state) => {
     return {
         orderIssueDate: state.orders.orderIssueDate,
         orderDeliveryDate: state.orders.orderDeliveryDate,
-        productsID: state.orders.productsID,
+        selectedProducts: state.orders.selectedProducts,
         quantity: state.orders.quantity,
         orderGeoLocation: state.orders.orderGeoLocation,
         orderLocationPicture: state.orders.orderLocationPicture,
@@ -20,7 +20,7 @@ export const mapDispatchToProps = (dispatch) => {
         setOrderDeliveryDate: (date) => {
             dispatch(AddOrderDeliveryDate(date))
         },
-        addProductToOder: (product) => dispatch(AddOrderProduct(product)),
+        addProductToOrder: (product) => dispatch(AddOrderProduct(product)),
         addOrderGeoLocation: (location) => dispatch(AddOrderGeoLocation(location)),
         addOrderShopPicture: pic => dispatch(AddOrderShopPicture(pic)),
         createOrder: (order) => dispatch(CreateOrder(order)),

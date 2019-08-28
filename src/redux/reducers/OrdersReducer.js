@@ -3,7 +3,7 @@ import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_
 const initialState = {
     orderIssueDate: new Date().toLocaleDateString(),
     orderDeliveryDate: new Date().toLocaleDateString(),
-    productsID: new Array(),
+    selectedProducts: new Array(),
     quantity: "",
     orderGeoLocation: new Object(),
     orderLocationPicture: new Array(),
@@ -20,7 +20,7 @@ const OrdersReducer = (state = initialState, action) => {
         case ADD_PRODUCT_FOR_ORDER:
             return {
                 ...state,
-                productID: action.payload
+                selectedProducts: [...state.selectedProducts, action.payload]
             }
         case ADD_QUANTITY_FOR_ORDER:
             return {
