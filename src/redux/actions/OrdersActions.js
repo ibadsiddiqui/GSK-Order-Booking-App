@@ -1,10 +1,17 @@
-import { ADD_QUANTITY_FOR_ORDER, ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, SUBMIT_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, ADD_PRODUCT_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER } from "../types";
+import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, SUBMIT_ORDER } from "../types";
 
 
 export const AddOrderIssueDate = (date) => {
     return {
         type: ADD_ISSUE_DATE_FOR_ORDER,
         payload: date
+    }
+}
+
+export const AddOrderDeliveryDate = (date) => {
+    return {
+        type: ADD_DELIVERY_DATE_FOR_ORDER,
+        payload: date,
     }
 }
 
@@ -22,12 +29,6 @@ export const AddOrderQuantity = (quantity) => {
     }
 }
 
-export const AddOrderDeliveryDate = (date) => {
-    return {
-        type: ADD_DELIVERY_DATE_FOR_ORDER,
-        payload: date,
-    }
-}
 
 export const AddOrderGeoLocation = (data) => {
     return {
