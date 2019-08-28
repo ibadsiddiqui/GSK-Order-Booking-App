@@ -1,18 +1,12 @@
-import * as WebBrowser from 'expo-web-browser';
+import { FontAwesome } from '@expo/vector-icons';
 import React from 'react';
-import {
-    FlatList,
-    Text,
-    TouchableOpacity,
-    Dimensions,
-    View,
-} from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'
-import ProductLists from '../../../../constants/ProductsList';
+import { Dimensions, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { _keyExtractor } from '../../../../commons/utils';
-import Layout from '../../../../constants/Layout';
 import Colors from '../../../../constants/Colors';
+import Layout from '../../../../constants/Layout';
+import ProductLists from '../../../../constants/ProductsList';
 const { width } = Dimensions.get('window')
+
 export default function ProductListScreen() {
     return (
         <View style={styles.container}>
@@ -27,7 +21,7 @@ export default function ProductListScreen() {
                     data={ProductLists}
                     keyExtractor={_keyExtractor}
                     renderItem={({ item, index }) =>
-                        <TouchableOpacity style={{ flexDirection: 'row', width, margin:10 }}>
+                        <TouchableOpacity style={{ flexDirection: 'row', width, margin: 10 }}>
                             <View style={{ marginHorizontal: 10 }} >
                                 <FontAwesome name="certificate" size={20} />
                             </View>
@@ -35,7 +29,6 @@ export default function ProductListScreen() {
                                 <Text >{item.name}</Text>
                             </View>
                         </TouchableOpacity>
-
                     }
                 />
             </View>
