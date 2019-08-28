@@ -17,7 +17,6 @@ class AddNewOrder extends React.Component {
 
     setIssueDate = async (key) => {
         try {
-
             const { action, year, month, day } = await DatePickerAndroid.open({
                 date: new Date(),
                 minDate: new Date(),
@@ -77,10 +76,12 @@ class AddNewOrder extends React.Component {
                                 <MaterialCommunityIcons name="cards" color={Colors.tintColor} size={30} />
                             </View>
                             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 2 }]}>
-                                <Text style={{ fontSize: 14 }}>Pick Products: </Text>
+                                <Text style={{ fontSize: 14 }}>Pick Products:</Text>
                             </View>
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', padding: 2.5, paddingRight: 20 }]}>
-                                <Feather name="chevrons-right" color={Colors.tintColor} size={30} />
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('AddProductToOrder')}>
+                                    <Feather name="chevrons-right" color={Colors.tintColor} size={30} />
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={[Layout.tableRow, { marginTop: 20 }]}>
