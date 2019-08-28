@@ -1,4 +1,4 @@
-import { Permissions } from "expo";
+import * as Permissions from 'expo-permissions';
 
 export async function takeCameraPermissionAsync() {
     const { status: cameraPerm } = await Permissions.askAsync(
