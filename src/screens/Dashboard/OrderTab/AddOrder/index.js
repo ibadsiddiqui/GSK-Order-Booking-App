@@ -1,4 +1,4 @@
-import { AntDesign, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from 'react';
 import { Dimensions, Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -20,7 +20,6 @@ export default class AddNewOrder extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-
                 <View style={[Layout.table,]}>
                     <ScrollView style={{ flex: 1, marginTop: 25, width, height: width }}>
                         <View style={[Layout.tableRow, { marginTop: 20 }]}>
@@ -28,7 +27,7 @@ export default class AddNewOrder extends React.Component {
                                 <TabBarIcon name="ios-calendar" focused={true} />
                             </View>
                             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 2 }]}>
-                                <Text style={{ fontSize: 14 }}>Select Order Issue Date: </Text>
+                                <Text style={{ fontSize: 14 }}>Issue Date: </Text>
                             </View>
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', padding: 6, paddingRight: 20 }]}>
                                 <Text>{new Date().toLocaleDateString()}</Text>
@@ -39,7 +38,7 @@ export default class AddNewOrder extends React.Component {
                                 <TabBarIcon name="ios-calendar" focused={true} />
                             </View>
                             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 2 }]}>
-                                <Text style={{ fontSize: 14 }}>Select Order Delivery Date: </Text>
+                                <Text style={{ fontSize: 14 }}>Delivery Date: </Text>
                             </View>
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', padding: 6, paddingRight: 20 }]}>
                                 <Text>{new Date().toLocaleDateString()}</Text>
@@ -63,8 +62,19 @@ export default class AddNewOrder extends React.Component {
                             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 2 }]}>
                                 <Text style={{ fontSize: 14 }}>Add Picture: </Text>
                             </View>
-                            <View style={[Layout.tableCell, { alignItems: 'flex-end', padding: 2.5, paddingRight: 20 }]}>
-                                <Feather name="chevrons-right" color={Colors.tintColor} size={30} />
+                            <View style={[Layout.tableCell, { flex: 0.2, alignItems: 'flex-end', padding: 2.5, paddingRight: 20 }]}>
+                                <TouchableOpacity>
+                                    <View style={{ flex: 0.2, width: 40, height: 30, paddingHorizontal: 5 }}>
+                                        <Ionicons name="ios-attach" size={25} color={Colors.primary} />
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={[Layout.tableCell, { flex: 0.2, alignItems: 'flex-end', padding: 2.5, paddingRight: 20 }]}>
+                                <TouchableOpacity>
+                                    <View style={{ flex: 0.2, width: 40, height: 30, paddingHorizontal: 5 }}>
+                                        <Ionicons name="ios-camera" size={25} color={Colors.primary} />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={[Layout.tableRow, { marginTop: 20 }]}>
@@ -80,11 +90,10 @@ export default class AddNewOrder extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
-
                 <View style={{ position: 'absolute', bottom: 20, right: 15 }}>
                     <TouchableOpacity>
                         <View style={{
-                            alignItems: 'center', justifyContent: 'center', backgroundColor: "#0078ff",
+                            alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.primary,
                             width: 100, height: 50, borderRadius: 20, flexDirection: 'row'
                         }}>
                             <AntDesign name="check" color='white' size={15} />
