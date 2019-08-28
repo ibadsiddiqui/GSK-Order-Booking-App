@@ -11,15 +11,11 @@ const { width } = Dimensions.get('window')
 
 class AddProductToOrderScreen extends React.Component {
 
-    state = {
-        ProductLists: [...ProductLists]
-    }
-
     addProduct = (item, index) => {
-        const { qty } = this.state.ProductLists[index];
+        const { qty } = this.props.productLists[index];
         let quantity = 1 + qty;
         this.setState({
-            ProductLists: this.state.ProductLists.map((_item, index) => {
+            ProductLists: this.props.productLists.map((_item, index) => {
                 _item.id === item.id ? {
                     ...item,
                     qty: quantity,
@@ -30,11 +26,11 @@ class AddProductToOrderScreen extends React.Component {
     }
 
     minusProduct = (item, index) => {
-        const { qty } = this.state.ProductLists[index];
+        const { qty } = this.props.productLists[index];
         let quantity = qty - 1;
 
         this.setState({
-            ProductLists: this.state.ProductLists.map((_item, index) => {
+            ProductLists: this.props.productLists.map((_item, index) => {
                 if (_item.id === item.id) {
                     if (_item.qty >= 1)
                         return {
@@ -50,10 +46,11 @@ class AddProductToOrderScreen extends React.Component {
             })
         })
     }
+    keyExtractor = (item, index) => index.toString();
 
     render() {
         console.log('====================================');
-        // console.log(this.state.ProductLists.filter((item, index) => item.id === 0));
+        // console.log(this.props.productLists.filter((item, index) => item.id === 0));
         console.log('====================================');
         return (
             <View style={styles.container}>
@@ -61,8 +58,8 @@ class AddProductToOrderScreen extends React.Component {
                 <View style={{ flex: 8 }}>
                     <FlatList
                         style={{ width }}
-                        data={this.state.ProductLists}
-                        keyExtractor={_keyExtractor}
+                        data={this.props.productLists}
+                        keyExtractor={this.keyExtractor}
                         renderItem={({ item, index }) => (
                             <View key={index} style={{ width: width * 0.8, flexDirection: 'row', width, margin: 5, padding: 10, elevation: 2, borderRadius: 10, borderColor: 'transparent', borderBottomColor: 'gray', borderWidth: 1, }}>
                                 <Text style={{ textAlign: 'left', width: 220 }}>{item.name}</Text>
