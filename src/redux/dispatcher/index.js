@@ -1,10 +1,10 @@
 import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProduct, AddOrderShopPicture, CreateOrder, AddOrderProducts, ResetOrderProducts } from "../actions/OrdersActions";
-import { resetProductList, addProductCount } from "../actions/ProductsActions";
+import { resetProductList, addProductCount, reduceProductCount } from "../actions/ProductsActions";
 
 export const mapStateToProps = (state) => {
     return {
         // from products reducer
-        productLists: state.product.ProductLists,
+        productLists: state.products.productLists,
 
         // from orders reducer
 
@@ -34,7 +34,8 @@ export const mapDispatchToProps = (dispatch) => {
 
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
-        addProductCount: (id) => dispatch(addProductCount(id))
+        addProductCount: (id) => dispatch(addProductCount(id)),
+        reduceProductCount: (id) => dispatch(reduceProductCount(id))
 
     }
 }

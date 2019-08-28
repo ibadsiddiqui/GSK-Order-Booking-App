@@ -3,6 +3,7 @@ import { combineReducers, createStore } from "redux";
 // defaults to localStorage AsyncStorage for react-native
 // import storage from "redux-persist/lib/storage"; 
 import OrdersReducer from './../reducers/OrdersReducer';
+import ProductsReducer from "../reducers/ProductsReducer";
 
 const rootReducer = combineReducers({
   //   PIN: PINReducer,

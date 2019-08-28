@@ -1,5 +1,6 @@
-import { RESET_PRODUCTS_FOR_ORDER, ADD_ITEM } from "../types";
+import { RESET_PRODUCTS_FOR_ORDER, ADD_ITEM, REDUCE_ITEM } from "../types";
 import ProductLists from "../../constants/ProductsList";
+import { addItem, reduceItem } from "../../commons/utils";
 
 const initialState = {
     productLists: [...ProductLists]
@@ -10,13 +11,12 @@ const ProductsReducer = (state = initialState, action) => {
         case ADD_ITEM:
             return {
                 ...state,
-                productLists: state.productLists.map((_item) => {
-                    _item.id === action.payload ? {
-                        ..._item,
-                        qty: _item.qty + 1,
-                    }
-                        : { ..._item }
-                })
+                productLists: addItem(state.productLists, action.payload),
+            }
+        case REDUCE_ITEM:
+            return {
+                ...state,
+                productLists: reduceItem(state.productLists, action.payload),
             }
         case RESET_PRODUCTS_FOR_ORDER:
             return {
