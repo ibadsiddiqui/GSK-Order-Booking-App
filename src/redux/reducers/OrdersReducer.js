@@ -1,12 +1,12 @@
-import { ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_DELIVERY_DATE_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST } from "../types";
+import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST } from "../types";
 
 const initialState = {
-    productID: "",
-    quantity: "",
     orderIssueDate: new Date().toLocaleString(),
     orderDeliveryDate: new Date().toLocaleString(),
-    orderGeoLocation: "",
-    orderLocationPicture: "",
+    productsID: new Array(),
+    quantity: "",
+    orderGeoLocation: new Object(),
+    orderLocationPicture: new Array(),
     ordersReceivedList: new Array(),
 }
 
