@@ -12,7 +12,13 @@ const { width } = Dimensions.get('window')
 class AddNewOrder extends React.Component {
     static navigationOptions = {
         title: 'Create Order',
-        headerBackground: true
+        headerStyle: {
+            backgroundColor: Colors.primary,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
     };
 
     setIssueDate = async (key) => {
@@ -42,7 +48,7 @@ class AddNewOrder extends React.Component {
         const { orderIssueDate, orderDeliveryDate } = this.props;
         return (
             <View style={styles.container}>
-                <View style={[Layout.table,]}>
+                <View style={[Layout.table]}>
                     <ScrollView style={{ flex: 1, marginTop: 25, width, height: width }}>
                         <View style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, { flex: 0.4, paddingLeft: 12.5 }]}>
@@ -123,7 +129,7 @@ class AddNewOrder extends React.Component {
                     <TouchableOpacity>
                         <View style={{
                             alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.primary,
-                            width: 100, height: 50, borderRadius: 20, flexDirection: 'row'
+                            width: 110, height: 50, borderRadius: 30, flexDirection: 'row'
                         }}>
                             <AntDesign name="check" color='white' size={15} />
                             <Text style={{ textAlign: 'center', color: 'white', padding: 5, fontSize: 16 }}>Submit</Text>
