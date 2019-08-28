@@ -368,12 +368,6 @@ let ProductLists = [
         qty: 0
     },
     {
-        name: "ABLE A2A SPACER",
-        tradePrice: 400.00,
-        mrp: 470.59,
-        qty: 0
-    },
-    {
         name: "VELOSEF SUSP. 125MG / 5ML 90ML",
         tradePrice: 127.44,
         mrp: 149.93,
