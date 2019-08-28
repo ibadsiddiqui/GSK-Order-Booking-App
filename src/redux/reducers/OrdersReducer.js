@@ -1,8 +1,8 @@
 import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST } from "../types";
 
 const initialState = {
-    orderIssueDate: new Date().toLocaleString(),
-    orderDeliveryDate: new Date().toLocaleString(),
+    orderIssueDate: new Date().toLocaleDateString(),
+    orderDeliveryDate: new Date().toLocaleDateString(),
     productsID: new Array(),
     quantity: "",
     orderGeoLocation: new Object(),
