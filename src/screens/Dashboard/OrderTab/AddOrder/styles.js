@@ -1,6 +1,6 @@
-import { Dimensions } from 'react-native'
-import Layout from "../../../../constants/Layout";
+import { Dimensions } from 'react-native';
 import Colors from '../../../../constants/Colors';
+import Layout from "../../../../constants/Layout";
 const { width } = Dimensions.get('window');
 
 const styles = {
@@ -41,10 +41,10 @@ const styles = {
         paddingHorizontal: 5
     },
     imageIcons: {
-        flex: 0.2,
+        flex: 0.5,
         alignItems: 'flex-end',
         padding: 2.5,
-        paddingRight: 20
+        paddingRight: 5
     },
     btnContainer: {
         position: 'absolute',

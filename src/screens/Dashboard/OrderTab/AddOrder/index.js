@@ -1,4 +1,5 @@
-import { AntDesign, Entypo, Feather, Ionicons, MaterialCommunityIcons, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import _ from 'lodash';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -6,10 +7,10 @@ import { connect } from "react-redux";
 import TabBarIcon from '../../../../components/TabBarIcon';
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
-import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import { pickDateForOrder } from "../../../../helpers/DateHelpers";
-import styles from "./styles";
 import { UploadImage } from "../../../../helpers/ImageHelper";
+import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
+import styles from "./styles";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
@@ -38,13 +39,16 @@ class AddNewOrder extends React.Component {
     selectImage = async (key) => {
         let result = await UploadImage(key)
         console.log(result);
-        
+        if (result.cancelled) return;
+        else {
+            this.props.addOrderShopPicture(`data:image/jpeg;base64,${result.base64}`);
+            return;
+        }
     }
 
     render() {
         const { orderIssueDate, orderDeliveryDate } = this.props;
         const itemSelected = this.props.productLists.filter((item) => item.qty > 0);
-
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
@@ -100,30 +104,54 @@ class AddNewOrder extends React.Component {
                             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
                                 <Text style={{ fontSize: 14 }}>Add Picture: </Text>
                             </View>
-                            <View style={[Layout.tableCell, styles.imageIcons]}>
-                                <TouchableOpacity onPress={() => this.selectImage('uploadphoto')}>
-                                    <View style={styles.iconBtnContainer}>
-                                        <Ionicons name="ios-attach" size={25} color={Colors.primary} />
+                            {
+                                _.isEmpty(this.props.orderLocationPicture) ?
+                                    <View style={{ flex: 0.6, flexDirection: 'row' }}>
+
+                                        <View style={[Layout.tableCell, styles.imageIcons]}>
+                                            <TouchableOpacity onPress={() => this.selectImage('uploadphoto')}>
+                                                <View style={styles.iconBtnContainer}>
+                                                    <Ionicons name="ios-attach" size={25} color={Colors.primary} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={[Layout.tableCell, styles.imageIcons]}>
+                                            <TouchableOpacity onPress={() => this.selectImage('takephoto')}>
+                                                <View style={styles.iconBtnContainer}>
+                                                    <Ionicons name="ios-camera" size={25} color={Colors.primary} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={[Layout.tableCell, styles.imageIcons]}>
-                                <TouchableOpacity onPress={() => this.selectImage('takephoto')}>
-                                    <View style={styles.iconBtnContainer}>
-                                        <Ionicons name="ios-camera" size={25} color={Colors.primary} />
+                                    :
+                                    <View style={{ flex: 1, flexDirection: 'row' }}>
+                                        <View style={[Layout.tableCell, { flex: .75 }]}>
+                                            <Text>Image Added</Text>
+                                        </View>
+                                        <View style={{ alignItems: 'center', justifyContent: 'center', paddingRight: 5 }}>
+                                            <TouchableOpacity onPress={this.props.resetOrderShopPicture}>
+                                                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                                    <FontAwesome name="remove" size={20} color={Colors.primary} />
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
-                                </TouchableOpacity>
-                            </View>
+
+                            }
                         </View>
-                        <View style={[Layout.tableRow, { marginTop: 20 }]}>
-                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
+                        <View style={[Layout.tableRow, { marginTop: 15 }]}>
+                            <View style={[Layout.tableCell, styles.leftIconStyle, { paddingTop: 5 }]}>
                                 <FontAwesome name="location-arrow" color={Colors.tintColor} size={30} />
                             </View>
-                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
+                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5, paddingTop: 10 }]}>
                                 <Text style={{ fontSize: 14 }}>Pick Location: </Text>
                             </View>
-                            <View style={[Layout.tableCell, { alignItems: 'flex-end', padding: 2.5, paddingRight: 20 }]}>
-                                <Entypo name="location-pin" color={Colors.tintColor} size={30} />
+                            <View style={[Layout.tableCell, { alignItems: 'flex-end', paddingRight: 20 }]}>
+                                <TouchableOpacity>
+                                    <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                                        <Entypo name="location-pin" color={Colors.tintColor} size={30} />
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </ScrollView>

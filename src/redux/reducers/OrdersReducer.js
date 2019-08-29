@@ -6,7 +6,7 @@ const initialState = {
     selectedProducts: new Array(),
     quantity: "",
     orderGeoLocation: new Object(),
-    orderLocationPicture: new Array(),
+    orderLocationPicture: "",
     ordersReceivedList: new Array(),
 }
 
@@ -40,12 +40,12 @@ const OrdersReducer = (state = initialState, action) => {
         case ADD_SHOP_PICTURE_FOR_ORDER:
             return {
                 ...state,
-                orderLocationPicture: [...state.orderLocationPicture, action.payload]
+                orderLocationPicture: action.payload
             }
         case RESET_SHOP_PICTURE_FOR_ORDER:
             return {
                 ...state,
-                orderLocationPicture: []
+                orderLocationPicture: ""
             }
         case ADD_GEOLOCATION_FOR_ORDER:
             return {
