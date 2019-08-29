@@ -13,3 +13,8 @@ export async function takeCameraRollPermissionAsync() {
     );
     return cameraRollPerm;
 }
+
+export async function getLocationPermission() {
+    const { status: locationPerm } = await Permissions.askAsync(Permissions.LOCATION);
+    return locationPerm;
+}
