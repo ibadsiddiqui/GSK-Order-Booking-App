@@ -61,7 +61,7 @@ class MapViewScreen extends React.Component {
                 longitudeDelta: LONGITUDEDELTA,
             },
         });
-        this.map.animateToRegion({ latitude: this.state.region.latitude, longitude: this.state.region.longitude })
+        this.map.animateToRegion(this.state.region)
     };
 
     setShopLocation = (e) => this.setState({
