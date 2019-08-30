@@ -1,15 +1,15 @@
-import { Entypo, Feather } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import * as Location from 'expo-location';
+import _ from 'lodash';
 import React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Dimensions, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import MapView, { Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import { connect } from "react-redux";
-import { getLocationPermission, checkLocationService, requestLocationService } from '../../constants/Permissions';
+import { checkLocationService, getLocationPermission, requestLocationService } from '../../constants/Permissions';
 import { mapDispatchToProps, mapStateToProps } from "../../redux/dispatcher";
 import Colors from './../../constants/Colors';
 const { width } = Dimensions.get('window')
-
 const LATITUDEDELTA = 0.0922;
 const LONGITUDEDELTA = 0.0421
 
@@ -21,7 +21,7 @@ class MapViewScreen extends React.Component {
     constructor() {
         super();
         this.state = {
-            mapView: true,
+            loading: false,
             region: {
                 latitude: 37.78825,
                 longitude: -122.4324,
@@ -31,106 +31,69 @@ class MapViewScreen extends React.Component {
         }
     }
 
-    componentDidMount = async () => await this._getLocationAsync();
+    async componentDidMount() {
+        await this._getLocationAsync()
+    }
 
     _getLocationAsync = async () => {
-        let status = await getLocationPermission();
+        await getLocationPermission();
         let serviceStatus = await checkLocationService()
         let location;
         if (serviceStatus) {
             location = await Location.getCurrentPositionAsync({});
+            await this._onRegionChange(location.coords)
+            this.map.setCamera({ center: { ...this.state.region }, zoom: 17.5 })
         } else {
             const status = await requestLocationService();
             if (status === "granted" || status) {
                 location = await Location.getCurrentPositionAsync({});
-            } else {
-                this.setState({
-                    mapView: false,
-                });
-                return;
-            }
+                this._onRegionChange(location.coords)
+                await this.map.setCamera({ center: { ...this.state.region }, zoom: 17.5 })
+            } else return;
         }
-        if (status !== 'granted')
-            this.setState({
-                mapView: false,
-            });
-        this.setState({
-            region: {
-                ...location.coords,
-                latitudeDelta: LATITUDEDELTA,
-                longitudeDelta: LONGITUDEDELTA,
-            },
-        });
-        this.map.animateToRegion(this.state.region)
+
     };
 
-    setShopLocation = (e) => this.setState({
+    _onRegionChange = (region) => this.setState({
         region: {
-            latitude: e.nativeEvent.coordinate.latitude,
-            longitude: e.nativeEvent.coordinate.longitude,
+            ...region,
             latitudeDelta: LATITUDEDELTA,
             longitudeDelta: LONGITUDEDELTA,
         }
     })
 
-    toggleMapView = (status) => this.setState({ mapView: status })
+    _toggleLoader = () => this.setState({ loading: true })
 
     addLocation = async () => {
+        this._toggleLoader();
         const { latitude, longitude } = this.state.region;
         let address = await Location.reverseGeocodeAsync({ latitude, longitude });
-        console.log({
-            ...address,
-            ...this.state.region
-        });
-        return
+        this.props.addOrderGeoLocation({ ...address['0'], ...this.state.region })
+        return this.props.navigation.navigate('AddNewOrder');
     }
 
     render() {
-
-        if (!this.state.mapView)
+        if (this.state.loading) {
             return (
-                <View style={{ flex: 1 }}>
-                    <View style={styles.headingContainer}>
-                        <Text style={styles.heading}>Select Location</Text>
+                <View style={{ flex: 1, ...StyleSheet.absoluteFill }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                        <ActivityIndicator size="large" color={Colors.primary} />
+                        <Text style={{ fontSize: 14, }}>Please wait while location being is added</Text>
                     </View>
-                    <View style={{ alignSelf: 'center' }}>
-                        <TouchableOpacity style={styles.btn}>
-                            <View style={{ paddingHorizontal: 7.5 }}>
-                                <Feather name="home" size={20} />
-                            </View>
-                            <View style={{ paddingTop: 1 }}>
-                                <Text>Pick Current Location</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ marginTop: 10, alignSelf: 'center', }}>
-                        <TouchableOpacity onPress={() => this.toggleMapView(true)}
-                            style={styles.btn}
-                        >
-                            <View style={{ paddingHorizontal: 7.5 }}>
-                                <Entypo name="location-pin" size={20} />
-                            </View>
-                            <View style={{ paddingTop: 1 }}>
-                                <Text>Pick From Map</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                </View >
+                </View>
             );
+        }
         else return (
             <View style={{ flex: 1, ...StyleSheet.absoluteFill }}>
+
                 <MapView style={{ flex: 1, ...StyleSheet.absoluteFillObject }}
                     ref={ref => this.map = ref}
-                >
-                    <Marker draggable
-                        coordinate={this.state.region}
-                        // onSelect={this.setShopLocation}
-                        // onDragStart={this.setShopLocation}
-                        onDragEnd={this.setShopLocation}
-                    // onPress={this.setShopLocation}
-                    // onDrag={this.setShopLocation}
-                    />
-                </MapView>
+                    initialRegion={_.isEmpty(this.props.orderGeoLocation) ? this.state.region : this.props.orderGeoLocation}
+                    onRegionChangeComplete={this._onRegionChange}
+                />
+                <View style={styles.markerFixed}>
+                    <Entypo name="location-pin" size={50} color={Colors.primary} />
+                </View>
                 <View style={{ position: 'absolute', bottom: 20, alignSelf: 'center' }}>
                     <TouchableOpacity onPress={this.addLocation}>
                         <View style={{
@@ -167,7 +130,14 @@ const styles = {
         flexDirection: 'row',
         borderRadius: 10,
         justifyContent: 'center',
-    }
+    },
+    markerFixed: {
+        left: '50%',
+        marginLeft: -24,
+        marginTop: -48,
+        position: 'absolute',
+        top: '50%'
+    },
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapViewScreen);

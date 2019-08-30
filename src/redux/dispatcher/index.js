@@ -1,4 +1,4 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
+import { AddOrderCustomerDetails, AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
 
 export const mapStateToProps = (state) => {
@@ -26,6 +26,7 @@ export const mapDispatchToProps = (dispatch) => {
         setOrderDeliveryDate: (date) => {
             dispatch(AddOrderDeliveryDate(date))
         },
+        addOrderCustomerDetails: () => dispatch(AddOrderCustomerDetails()),
         addProductToOrder: (product) => dispatch(AddOrderProducts(product)),
         resetOrderProducts: () => dispatch(ResetOrderProducts()),
         addOrderGeoLocation: (location) => dispatch(AddOrderGeoLocation(location)),
