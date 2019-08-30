@@ -4,11 +4,13 @@ import { combineReducers, createStore } from "redux";
 // import storage from "redux-persist/lib/storage"; 
 import OrdersReducer from './../reducers/OrdersReducer';
 import ProductsReducer from "../reducers/ProductsReducer";
+import ShopsReducer from "../reducers/ShopsReducer";
 
 const rootReducer = combineReducers({
   //   PIN: PINReducer,
   orders: OrdersReducer,
   products: ProductsReducer,
+  shops: ShopsReducer
   //   Registration: RegistrationReducer,
   //   Users: UsersReducer,
   //   Currencies: CurrenciesReducer,

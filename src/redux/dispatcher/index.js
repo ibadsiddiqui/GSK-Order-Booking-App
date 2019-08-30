@@ -6,8 +6,14 @@ export const mapStateToProps = (state) => {
         // from products reducer
         productLists: state.products.productLists,
 
-        // from orders reducer
+        // from shop reducer
+        shopName: state.shops.shopName,
+        shopOwnerName: state.shops.shopOwnerName,
+        shopOwnerID: state.shops.shopOwnerID,
+        shopOwnerCellNumber: state.shops.shopOwnerCellNumber,
+        registeredListOfShops: state.shops.registeredListOfShops,
 
+        // from orders reducer
         orderIssueDate: state.orders.orderIssueDate,
         orderDeliveryDate: state.orders.orderDeliveryDate,
         selectedProducts: state.orders.selectedProducts,

@@ -17,3 +17,11 @@ export const PUSH_ORDER_TO_RECEIVED_LIST = 'PUSH_ORDER_TO_RECEIVED_LIST';
 // For Products
 export const ADD_ITEM = "ADD_ITEM";
 export const REDUCE_ITEM = "REDUCE_ITEM";
+
+
+// for Shops
+export const ADD_SHOP_NAME = "ADD_SHOP_NAME";
+export const ADD_SHOP_OWNER_NAME = 'ADD_SHOP_OWNER_NAME';
+export const ADD_SHOP_OWNER_ID = 'ADD_SHOP_OWNER_ID';
+export const ADD_SHOP_OWNER_CELL = 'ADD_SHOP_OWNER_CELL';
+export const ADD_SHOP_TO_REGISTERED_LIST = 'ADD_SHOP_TO_REGISTERED_LIST';
