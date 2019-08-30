@@ -2,6 +2,7 @@ import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_
 
 const initialState = {
     orderIssueDate: new Date().toLocaleDateString(),
+    customerDetail: new Object(),
     orderDeliveryDate: new Date().toLocaleDateString(),
     selectedProducts: new Array(),
     quantity: "",

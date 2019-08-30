@@ -21,7 +21,7 @@ class AddNewOrder extends React.Component {
         headerTintColor: '#fff',
     };
 
-    setDateForOrder = async (key) => {
+    _setDateForOrder = async (key) => {
         const date = await pickDateForOrder();
         if (date.cancelled) return
         else switch (key) {
@@ -36,7 +36,7 @@ class AddNewOrder extends React.Component {
         }
     }
 
-    selectImage = async (key) => {
+    _selectImage = async (key) => {
         let result = await UploadImage(key)
         console.log(result);
         if (result.cancelled) return;
@@ -46,14 +46,29 @@ class AddNewOrder extends React.Component {
         }
     }
 
+    _navigateToMap = () => this.props.navigation.navigate('MapView');
+
     render() {
-        const { orderIssueDate, orderDeliveryDate } = this.props;
-        const itemSelected = this.props.productLists.filter((item) => item.qty > 0);
+        const { orderIssueDate, orderDeliveryDate, productLists } = this.props;
+        const itemSelected = productLists.filter((item) => item.qty > 0);
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
-                        <TouchableOpacity onPress={() => this.setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
+                        <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
+                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
+                                <TabBarIcon name="ios-calendar" focused={true} />
+                            </View>
+                            <View style={[Layout.tableCell, styles.labelStyle]}>
+                                <Text style={{ fontSize: 14 }}>Customer Name: </Text>
+                            </View>
+                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
+                                <View >
+                                    <Text>Select Name</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
                                 <TabBarIcon name="ios-calendar" focused={true} />
                             </View>
@@ -66,7 +81,7 @@ class AddNewOrder extends React.Component {
                                 </View>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.setDateForOrder('delivery')}
+                        <TouchableOpacity onPress={() => this._setDateForOrder('delivery')}
                             style={[Layout.tableRow, { marginTop: 20 }]}
                         >
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
@@ -77,7 +92,6 @@ class AddNewOrder extends React.Component {
                             </View>
                             <View style={[Layout.tableCell, styles.datePickerBtn]}>
                                 <Text>{orderDeliveryDate}</Text>
-
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('AddProductToOrder')}
@@ -109,14 +123,14 @@ class AddNewOrder extends React.Component {
                                     <View style={{ flex: 0.6, flexDirection: 'row' }}>
 
                                         <View style={[Layout.tableCell, styles.imageIcons]}>
-                                            <TouchableOpacity onPress={() => this.selectImage('uploadphoto')}>
+                                            <TouchableOpacity onPress={() => this._selectImage('uploadphoto')}>
                                                 <View style={styles.iconBtnContainer}>
                                                     <Ionicons name="ios-attach" size={25} color={Colors.primary} />
                                                 </View>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={[Layout.tableCell, styles.imageIcons]}>
-                                            <TouchableOpacity onPress={() => this.selectImage('takephoto')}>
+                                            <TouchableOpacity onPress={() => this._selectImage('takephoto')}>
                                                 <View style={styles.iconBtnContainer}>
                                                     <Ionicons name="ios-camera" size={25} color={Colors.primary} />
                                                 </View>
@@ -136,7 +150,6 @@ class AddNewOrder extends React.Component {
                                             </TouchableOpacity>
                                         </View>
                                     </View>
-
                             }
                         </View>
                         <View style={[Layout.tableRow, { marginTop: 15 }]}>
@@ -147,9 +160,14 @@ class AddNewOrder extends React.Component {
                                 <Text style={{ fontSize: 14 }}>Pick Location: </Text>
                             </View>
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', paddingRight: 20 }]}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={this._navigateToMap}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                        <Entypo name="location-pin" color={Colors.tintColor} size={30} />
+                                        {
+                                            _.isEmpty(this.props.orderGeoLocation) ?
+                                                <Entypo name="location-pin" color={Colors.tintColor} size={30} />
+                                                :
+                                                <Text style={{ width: 170, fontSize: 14, height: 40, textAlign: 'center', textAlignVertical: 'center' }}>{this.props.orderGeoLocation.name} {this.props.orderGeoLocation.street} {this.props.orderGeoLocation.postalCode}, {this.props.orderGeoLocation.city}, {this.props.orderGeoLocation.country}</Text>
+                                        }
                                     </View>
                                 </TouchableOpacity>
                             </View>
@@ -166,7 +184,6 @@ class AddNewOrder extends React.Component {
                 </View>
             </View >
         );
-
     }
 }
 
