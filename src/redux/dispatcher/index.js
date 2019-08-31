@@ -1,6 +1,6 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture, AddOrderDiscount } from "../actions/OrdersActions";
+import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
-import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList } from "../actions/ShopsActions";
+import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList, addShopOrderToList } from "../actions/ShopsActions";
 
 export const mapStateToProps = (state) => {
     return {
@@ -16,10 +16,10 @@ export const mapStateToProps = (state) => {
 
         // from orders reducer
         shopDetails: state.orders.shopDetails,
+        attachmentToOrder: state.orders.attachmentToOrder,
         orderIssueDate: state.orders.orderIssueDate,
         orderDeliveryDate: state.orders.orderDeliveryDate,
         selectedProducts: state.orders.selectedProducts,
-        quantity: state.orders.quantity,
         orderGeoLocation: state.orders.orderGeoLocation,
         orderLocationPicture: state.orders.orderLocationPicture,
         ordersReceivedList: state.orders.ordersReceivedList,
@@ -37,12 +37,14 @@ export const mapDispatchToProps = (dispatch) => {
         },
         addOrderShopDetails: (data) => dispatch(AddOrderShopDetails(data)),
         addProductToOrder: (product) => dispatch(AddOrderProducts(product)),
-        resetOrderProducts: () => dispatch(ResetOrderProducts()),
+        // resetOrderProducts: () => dispatch(ResetOrderProducts()),
         addOrderGeoLocation: (location) => dispatch(AddOrderGeoLocation(location)),
         addOrderShopPicture: pic => dispatch(AddOrderShopPicture(pic)),
         resetOrderShopPicture: () => dispatch(resetOrderShopPicture()),
         createOrder: (order) => dispatch(CreateOrder(order)),
-
+        addOrderDiscount: (discount) => dispatch(AddOrderDiscount(discount)),
+        addAttachmentToOrder: (doc) => dispatch(AddAttachmentToOrder(doc)),
+        addOrderToReceivedOrderList: (date, order) => dispatch(AddOrderToReceivedOrderList(date, order)),
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
         addProductCount: (id) => dispatch(addProductCount(id)),
@@ -54,7 +56,6 @@ export const mapDispatchToProps = (dispatch) => {
         addShopOwnerID: (id) => dispatch(addShopOwnerID(id)),
         addShopOwnerCellNumber: (num) => dispatch(addShopOwnerCellNumber(num)),
         addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop)),
-        addShopOrderToList: (orderID) => dispatch(addShopOrderToList(orderID)),
-        addOrderDiscount: (discount) => dispatch(AddOrderDiscount(discount)),
+        addShopOrderToList: (shopID, orderID) => dispatch(addShopOrderToList(shopID,orderID)),
     }
 }
