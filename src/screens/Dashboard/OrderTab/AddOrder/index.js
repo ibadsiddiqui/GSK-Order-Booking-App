@@ -49,13 +49,13 @@ class AddNewOrder extends React.Component {
     _navigateToMap = () => this.props.navigation.navigate('MapView');
 
     render() {
-        const { orderIssueDate, orderDeliveryDate, productLists } = this.props;
+        const { orderIssueDate, orderDeliveryDate, productLists, navigation } = this.props;
         const itemSelected = productLists.filter((item) => item.qty > 0);
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
-                        <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AddShopToOrder')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
                                 <TabBarIcon name="ios-calendar" focused={true} />
                             </View>
