@@ -1,12 +1,12 @@
-import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_DETAILS, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_PRODUCTS_FOR_ORDER, RESET_SHOP_PICTURE_FOR_ORDER, ADD_ORDER_DISCOUNT } from "../types";
+import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_SHOP_DETAILS, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_SHOP_PICTURE_FOR_ORDER, ADD_ORDER_DISCOUNT, ADD_ATTACHMENT_TO_ORDER, SUBMIT_ORDER } from "../types";
+import { sortArrayAccordingToDate, sortArrayAccordingToTime } from "../../commons/utils";
 
 const initialState = {
     shopDetails: new Object,
+    attachmentToOrder: "",
     orderIssueDate: new Date().toLocaleDateString(),
-    customerDetail: new Object(),
     orderDeliveryDate: new Date().toLocaleDateString(),
     selectedProducts: new Array(),
-    quantity: "",
     discount: 0,
     orderGeoLocation: new Object(),
     orderLocationPicture: "",
@@ -33,17 +33,7 @@ const OrdersReducer = (state = initialState, action) => {
         case ADD_PRODUCT_FOR_ORDER:
             return {
                 ...state,
-                selectedProducts: [...state.selectedProducts, action.payload]
-            }
-        case RESET_PRODUCTS_FOR_ORDER:
-            return {
-                ...state,
-                selectedProducts: []
-            }
-        case ADD_QUANTITY_FOR_ORDER:
-            return {
-                ...state,
-                quantity: action.payload
+                selectedProducts: action.payload
             }
         case ADD_DELIVERY_DATE_FOR_ORDER:
             return {
@@ -65,10 +55,27 @@ const OrdersReducer = (state = initialState, action) => {
                 ...state,
                 orderGeoLocation: action.payload
             }
-        case PUSH_ORDER_TO_RECEIVED_LIST:
+        case ADD_ATTACHMENT_TO_ORDER:
             return {
                 ...state,
-                ordersReceivedList: Array.from(state.ordersReceivedList, action.payload)
+                attachmentToOrder: action.payload
+            }
+
+            case SUBMIT_ORDER:
+            return {
+                ...state,
+                ordersReceivedList: sortArrayAccordingToDate(state.ordersReceivedList.concat(action.payload)),
+            }
+
+            case PUSH_ORDER_TO_RECEIVED_LIST:
+            return {
+                ...state,
+                ordersReceivedList: state.ordersReceivedList.map((item, index) => {
+                    return item.date === action.date ? {
+                        date: item.date,
+                        data: sortArrayAccordingToTime(item.data.concat(action.payload))
+                    } : item
+                })
             }
         default:
             return state
