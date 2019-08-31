@@ -200,6 +200,13 @@ class AddNewOrder extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
+                <View style={{ position: 'absolute', left: 10, bottom: 25 }}>
+                    <TouchableOpacity>
+                        <View style={[styles.submitBtn, { width: 50, }]}>
+                            <MaterialCommunityIcons name="file-document-box-multiple-outline" color='white' size={30} />
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.btnContainer}>
                     <TouchableOpacity>
                         <View style={styles.submitBtn}>
