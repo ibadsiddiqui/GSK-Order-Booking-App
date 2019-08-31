@@ -30,7 +30,8 @@ class AddShopScreen extends Component {
             shopOwnerID, shopOwnerCellNumber } = this.props;
         this.props.addShopToRegisteredList({
             shopName, shopOwnerName,
-            shopOwnerID, shopOwnerCellNumber
+            shopOwnerID, shopOwnerCellNumber,
+            orders: [],
         })
         this.props.navigation.navigate('ShopList');
     }
@@ -64,7 +65,7 @@ class AddShopScreen extends Component {
                             marginTop: 100,
                             borderRadius: 10,
                         }}
-                        onPress={this.onSubmit}>
+                            onPress={this.onSubmit}>
                             <Text style={{ fontSize: 17, textAlign: 'center', color: Colors.white }}>Submit Details</Text>
                         </Button>
                     </Form>
