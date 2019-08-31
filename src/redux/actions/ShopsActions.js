@@ -1,4 +1,4 @@
-import { ADD_SHOP_NAME, ADD_SHOP_OWNER_NAME, ADD_SHOP_OWNER_ID, ADD_SHOP_OWNER_CELL, ADD_SHOP_TO_REGISTERED_LIST, ADD_TASK_TO_SHOP } from "../types";
+import { ADD_SHOP_NAME, ADD_SHOP_OWNER_NAME, ADD_SHOP_OWNER_ID, ADD_SHOP_OWNER_CELL, ADD_SHOP_TO_REGISTERED_LIST, ADD_ORDER_TO_SHOP } from "../types";
 
 export const addShopName = (data) => {
     return {
@@ -35,9 +35,9 @@ export const addShopToRegisteredList = (detail) => {
     }
 }
 
-export const addShopOrderToList = (orderID) => {
+export const addShopOrderToList = (shopID, orderID) => {
     return {
-        type: ADD_TASK_TO_SHOP,
-        payload: { orderID },
+        type: ADD_ORDER_TO_SHOP,
+        payload: { shopID, orderID },
     }
 }
