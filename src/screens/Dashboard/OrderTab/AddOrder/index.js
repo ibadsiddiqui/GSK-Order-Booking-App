@@ -1,7 +1,7 @@
 import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import _ from 'lodash';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Picker } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import TabBarIcon from '../../../../components/TabBarIcon';
@@ -11,6 +11,7 @@ import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
+import { generateRange } from "../../../../commons/utils";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
@@ -38,7 +39,7 @@ class AddNewOrder extends React.Component {
 
     _selectImage = async (key) => {
         let result = await UploadImage(key)
-        console.log(result);
+        // console.log(result);
         if (result.cancelled) return;
         else {
             this.props.addOrderShopPicture(`data:image/jpeg;base64,${result.base64}`);
@@ -160,6 +161,22 @@ class AddNewOrder extends React.Component {
                                         </View>
                                     </View>
                             }
+                        </View>
+                        <View style={[Layout.tableRow, { marginTop: 20 }]}>
+                            <View style={[Layout.tableCell, { flex: 0.35, paddingLeft: 12.5 }]}>
+                                <AntDesign name="picture" color={Colors.tintColor} size={30} />
+                            </View>
+                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
+                                <Text style={{ fontSize: 14 }}>Add Discount: </Text>
+                            </View>
+                            <View style={[Layout.tableCell]}>
+                                <Picker mode="dialog"
+                                    style={{ height: 50, width: 100 }}
+                                    selectedValue={this.props.discount}
+                                    onValueChange={(value, index) => this.props.addOrderDiscount(value)}>
+                                    {generateRange()}
+                                </Picker>
+                            </View>
                         </View>
                         <View style={[Layout.tableRow, { marginTop: 15 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle, { paddingTop: 5 }]}>
