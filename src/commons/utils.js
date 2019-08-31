@@ -1,5 +1,6 @@
 import React from 'react';
 import { Picker } from 'react-native';
+import * as DocumentPicker from 'expo-document-picker';
 
 export const _keyExtractor = (item, index) => {
     return item.id;
@@ -34,6 +35,24 @@ export const reduceItem = (array, id) => {
 
 export function generateRange() {
     return [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((item) =>
-        <Picker.Item label={item + "%"} value={item} />
+        <Picker.Item label={item + "%"} value={item} key={item} />
     );
+}
+
+export async function pickDocument() {
+    return await DocumentPicker.getDocumentAsync({ type: "application/pdf", copyToCacheDirectory: true })
+}
+
+export function getLocaleDateString(date) {
+    if (typeof date !== "undefined")
+        return new Date(date).toLocaleDateString()
+    return new Date().toLocaleDateString()
+}
+
+export function sortArrayAccordingToDate(array) {
+    return array.sort((a, b) => new Date(a.date) - new Date(b.date));
+}
+
+export function sortArrayAccordingToTime(array) {
+    return array.sort((a, b) => new Date(a.orderIssueDate) - new Date(b.orderIssueDate));
 }
