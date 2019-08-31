@@ -51,6 +51,7 @@ export const mapDispatchToProps = (dispatch) => {
         addShopOwnerName: (name) => dispatch(addShopOwnerName(name)),
         addShopOwnerID: (id) => dispatch(addShopOwnerID(id)),
         addShopOwnerCellNumber: (num) => dispatch(addShopOwnerCellNumber(num)),
-        addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop))
+        addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop)),
+        addShopOrderToList: (orderID) => dispatch(addShopOrderToList(orderID)),
     }
 }
