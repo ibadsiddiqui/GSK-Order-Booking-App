@@ -19,8 +19,9 @@ class AddShopToOrderScreen extends React.Component {
         }
     }
 
-    onPress = (productInfo) => {
-        return this.props.navigation.navigate('ProductInfo', { productInfo: productInfo })
+    onPress = (shop) => {
+        this.props.addOrderShopDetails(shop);
+        return this.props.navigation.navigate('AddNewOrder');
     }
 
     render() {
