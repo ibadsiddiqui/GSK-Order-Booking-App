@@ -6,9 +6,10 @@ import AddNewOrder from '../screens/Dashboard/OrderTab/AddOrder';
 import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
 import HomeScreen from '../screens/HomeScreen';
 import ListOfShops from '../screens/Dashboard/ShopTab/ListOfShops';
-import SettingsScreen from '../screens/SettingsScreen';
+// import SettingsScreen from '../screens/SettingsScreen';
 import { Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
+import OrdersScreen from '../screens/OrdersScreen';
 
 
 const config = Platform.select({
@@ -60,7 +61,7 @@ ShopsStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
-    Settings: SettingsScreen,
+    Settings: OrdersScreen,
   },
   config
 );
