@@ -1,6 +1,7 @@
-import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_PRODUCTS_FOR_ORDER, RESET_SHOP_PICTURE_FOR_ORDER } from "../types";
+import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_QUANTITY_FOR_ORDER, ADD_SHOP_DETAILS, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_PRODUCTS_FOR_ORDER, RESET_SHOP_PICTURE_FOR_ORDER } from "../types";
 
 const initialState = {
+    shopDetails: new Object,
     orderIssueDate: new Date().toLocaleDateString(),
     customerDetail: new Object(),
     orderDeliveryDate: new Date().toLocaleDateString(),
@@ -13,6 +14,11 @@ const initialState = {
 
 const OrdersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_SHOP_DETAILS:
+            return {
+                ...state,
+                shopDetails: action.payload,
+            }
         case ADD_ISSUE_DATE_FOR_ORDER:
             return {
                 ...state,
