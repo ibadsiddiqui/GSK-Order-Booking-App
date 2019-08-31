@@ -1,4 +1,4 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
+import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture, AddOrderDiscount } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
 import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList } from "../actions/ShopsActions";
 
@@ -23,6 +23,7 @@ export const mapStateToProps = (state) => {
         orderGeoLocation: state.orders.orderGeoLocation,
         orderLocationPicture: state.orders.orderLocationPicture,
         ordersReceivedList: state.orders.ordersReceivedList,
+        discount: state.orders.discount,
     }
 }
 
@@ -54,5 +55,6 @@ export const mapDispatchToProps = (dispatch) => {
         addShopOwnerCellNumber: (num) => dispatch(addShopOwnerCellNumber(num)),
         addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop)),
         addShopOrderToList: (orderID) => dispatch(addShopOrderToList(orderID)),
+        addOrderDiscount: (discount) => dispatch(AddOrderDiscount(discount)),
     }
 }
