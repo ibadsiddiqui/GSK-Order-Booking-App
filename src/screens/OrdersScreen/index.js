@@ -27,6 +27,8 @@ class OrdersList extends React.Component {
 
     render() {
         const { ordersReceivedList } = this.props;
+        console.log(ordersReceivedList.length);
+
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>
@@ -39,16 +41,18 @@ class OrdersList extends React.Component {
                             <SectionList
                                 style={{ height }}
                                 sections={ordersReceivedList}
-                                keyExtractor={(item, index) => index}
-                                renderSectionHeader={({ section }) =>
-                                    section.date !== "" &&
-                                    <View style={styles.dayHeadingContainer}>
-                                        <Text style={styles.dayHeadingText}> {slicingMomentDateUsingAt(section.date)}</Text>
-                                    </View >
-                                }
+                                keyExtractor={_keyExtractor}
+                                renderSectionHeader={({ section }) => {
+                                    // console.log(section.date)
+                                    return (
+                                        <View style={styles.dayHeadingContainer}>
+                                            <Text style={styles.dayHeadingText}> {slicingMomentDateUsingAt(section.date)}</Text>
+                                        </View >
+                                    )
+                                }}
                                 renderItem={({ item, index }) =>
                                     <View>
-                                        <Text>{item.id}</Text>
+                                        <Text>{item.orderID}</Text>
                                     </View>
 
                                 }

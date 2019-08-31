@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native';
+import Layout from '../../constants/Layout';
 
 const { width, height } = Dimensions.get('window')
 
