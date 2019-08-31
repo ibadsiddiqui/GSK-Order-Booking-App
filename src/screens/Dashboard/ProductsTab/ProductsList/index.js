@@ -1,14 +1,12 @@
-import { Entypo } from '@expo/vector-icons';
 import React from 'react';
-import { Dimensions, FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { _keyExtractor } from '../../../../commons/utils';
-import TabBarIcon from '../../../../components/TabBarIcon';
 import Colors from '../../../../constants/Colors';
+import { View } from 'react-native'
 import Layout from '../../../../constants/Layout';
-import ProductLists from '../../../../constants/ProductsList';
-const { width } = Dimensions.get('window')
+import List from '../../../../components/common/List';
+import { mapStateToProps, mapDispatchToProps } from '../../../../redux/dispatcher';
+import { connect } from "react-redux";
 
-export default class ProductListScreen extends React.Component {
+class ProductListScreen extends React.Component {
     static navigationOptions = {
         title: 'Products List by GSK',
         headerStyle: {
@@ -28,25 +26,7 @@ export default class ProductListScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>
-                    <FlatList
-                        style={{ width }}
-                        data={ProductLists}
-                        keyExtractor={_keyExtractor}
-                        renderItem={({ item, index }) =>
-                            <TouchableOpacity style={{ flexDirection: 'row', width, margin: 10 }}
-                                onPress={() => this.onPress(item)}
-                            >
-                                <View style={{ marginHorizontal: 10 }} >
-                                    <Entypo name="dot-single" size={20} color={Colors.primary} />
-                                </View>
-                                <Text style={{ textAlign: 'left', width: 220 }}>{item.name}</Text>
-                                <View style={{ alignSelf: 'flex-end', alignItems: 'flex-end', marginTop: -10, paddingHorizontal: width * .15 }}>
-
-                                    <TabBarIcon name='md-information-circle' focused={true} />
-                                </View>
-                            </TouchableOpacity>
-                        }
-                    />
+                    <List type="Product" {...this.props} onPress={this.onPress} />
                 </View>
             </View>
         );
@@ -59,3 +39,4 @@ const styles = {
         ...Layout.table
     },
 };
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListScreen)
