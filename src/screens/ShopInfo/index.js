@@ -18,7 +18,7 @@ export default class ShopInfoScreen extends React.Component {
             { data: [{ value: shopInfo.shopOwnerName }], title: 'Shop Owner Name:' },
             { data: [{ value: shopInfo.shopOwnerID }], title: 'Owner ID:' },
             { data: [{ value: shopInfo.shopOwnerCellNumber }], title: 'Contact Number:' },
-            { data: [{ value: shopInfo.orders }], title: 'Orders count: ' + shopInfo.orders.length },
+            { data: shopInfo.orders, title: 'Orders count: ' + shopInfo.orders.length },
         ]
         return (
             <SectionList
@@ -38,7 +38,13 @@ export default class ShopInfoScreen extends React.Component {
     };
 
     _renderItem = ({ item }) => {
-        return (
+        if (typeof item.value === "undefined")
+            return (
+                <SectionContent>
+                    <Text style={styles.sectionContentText}>{item}</Text>
+                </SectionContent>
+            )
+        else return (
             <SectionContent>
                 <Text style={styles.sectionContentText}>{item.value}</Text>
             </SectionContent>
