@@ -24,9 +24,7 @@ const ProductsReducer = (state = initialState, action) => {
                 productLists: [...state.productLists],
             }
         default:
-            return {
-                ...state,
-            }
+            return state
     }
 }
 

@@ -5,7 +5,7 @@ const initialState = {
     shopOwnerName: "",
     shopOwnerID: "",
     shopOwnerCellNumber: "",
-    registeredListOfShops: new Array(),
+    registeredListOfShops: [],
 }
 
 const ShopsReducer = (state = initialState, action) => {
@@ -36,9 +36,7 @@ const ShopsReducer = (state = initialState, action) => {
                 registeredListOfShops: [...state.registeredListOfShops, action.payload]
             }
         default:
-            return {
-                ...state,
-            }
+            return state
     }
 }
 

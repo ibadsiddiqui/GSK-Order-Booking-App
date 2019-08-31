@@ -1,5 +1,6 @@
 import { AddOrderCustomerDetails, AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
+import { addShopName, addShopOwnerName, addShopOwnerID, addShopOwnerCellNumber, addShopToRegisteredList } from "../actions/ShopsActions";
 
 export const mapStateToProps = (state) => {
     return {
@@ -43,7 +44,13 @@ export const mapDispatchToProps = (dispatch) => {
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
         addProductCount: (id) => dispatch(addProductCount(id)),
-        reduceProductCount: (id) => dispatch(reduceProductCount(id))
+        reduceProductCount: (id) => dispatch(reduceProductCount(id)),
 
+        // shop dispatchers
+        addShopName: (name) => dispatch(addShopName(name)),
+        addShopOwnerName: (name) => dispatch(addShopOwnerName(name)),
+        addShopOwnerID: (id) => dispatch(addShopOwnerID(id)),
+        addShopOwnerCellNumber: (num) => dispatch(addShopOwnerCellNumber(num)),
+        addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop))
     }
 }

@@ -59,9 +59,7 @@ const OrdersReducer = (state = initialState, action) => {
                 ordersReceivedList: Array.from(state.ordersReceivedList, action.payload)
             }
         default:
-            return {
-                ...state,
-            }
+            return state
     }
 }
 
