@@ -12,7 +12,6 @@ export default class ProductInfo extends React.Component {
 
     render() {
         const productInfo = this.props.navigation.getParam("productInfo", {});
-
         const sections = [
             { data: [{ value: productInfo.id }], title: 'Product ID:' },
             { data: [{ value: productInfo.name }], title: 'Product Name:' },
