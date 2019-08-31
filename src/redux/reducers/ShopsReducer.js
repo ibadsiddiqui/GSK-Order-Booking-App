@@ -1,4 +1,4 @@
-import { ADD_SHOP_NAME, ADD_SHOP_OWNER_NAME, ADD_SHOP_OWNER_ID, ADD_SHOP_OWNER_CELL, ADD_SHOP_TO_REGISTERED_LIST, ADD_TASK_TO_SHOP, } from "../types";
+import { ADD_SHOP_NAME, ADD_SHOP_OWNER_NAME, ADD_SHOP_OWNER_ID, ADD_SHOP_OWNER_CELL, ADD_SHOP_TO_REGISTERED_LIST, ADD_ORDER_TO_SHOP, } from "../types";
 
 const initialState = {
     shopName: "",
@@ -35,13 +35,13 @@ const ShopsReducer = (state = initialState, action) => {
                 ...state,
                 registeredListOfShops: [...state.registeredListOfShops, action.payload]
             }
-        case ADD_TASK_TO_SHOP:
+        case ADD_ORDER_TO_SHOP:
             return {
                 ...state,
                 registeredListOfShops: state.registeredListOfShops.map((shop, index) => {
-                    return shop.id === action.payload.orderID ? {
+                    return shop.id === action.payload.shopID ? {
                         ...shop,
-                        orders: [...shop.orders, action.payload.orderID]
+                        orders: shop.orders.concat(action.payload.orderID)
                     } : shop
                     // } : shop
                 })
