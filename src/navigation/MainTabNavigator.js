@@ -5,8 +5,10 @@ import TabBarIcon from '../components/TabBarIcon';
 import AddNewOrder from '../screens/Dashboard/OrderTab/AddOrder';
 import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ListOfShops from '../screens/Dashboard/ShopTab/ListOfShops';
 import SettingsScreen from '../screens/SettingsScreen';
+import { Entypo } from '@expo/vector-icons';
+import Colors from '../constants/Colors';
 
 
 const config = Platform.select({
@@ -37,21 +39,24 @@ HomeStack.navigationOptions = {
 
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
+const ShopsStack = createStackNavigator(
   {
-    Links: LinksScreen,
+    ShopList: ListOfShops,
   },
   config
 );
 
-LinksStack.navigationOptions = {
+ShopsStack.navigationOptions = {
   // tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <Entypo color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+      name="shop"
+      size={26}
+    />
   ),
 };
 
-LinksStack.path = '';
+ShopsStack.path = '';
 
 const SettingsStack = createStackNavigator(
   {
@@ -111,8 +116,8 @@ SettingsStack.path = '';
 
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
+  // HomeStack,
+  ShopsStack,
   AddOrderStack,
   ProductsStack,
   SettingsStack,
