@@ -1,7 +1,7 @@
 import React from 'react';
 import { Picker } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
-
+import moment from 'moment'
 export const _keyExtractor = (item, index) => {
     return item.id;
 };
@@ -37,6 +37,12 @@ export function generateRange() {
     return [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map((item) =>
         <Picker.Item label={item + "%"} value={item} key={item} />
     );
+}
+
+export function slicingMomentDateUsingAt(date) {
+    if (moment(date).calendar().includes(" at ")) {
+        return moment(date).calendar().slice(0, moment(date).calendar().indexOf(" at "))
+    } else return moment(date).calendar()
 }
 
 export async function pickDocument() {

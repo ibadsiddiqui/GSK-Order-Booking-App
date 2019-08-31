@@ -1,12 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
+import {  Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import List from '../../../../components/common/List';
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
 import { mapDispatchToProps, mapStateToProps } from '../../../../redux/dispatcher';
-const { width } = Dimensions.get('window')
 
 class ListOfShops extends React.Component {
     static navigationOptions = ({ navigation }) => {
