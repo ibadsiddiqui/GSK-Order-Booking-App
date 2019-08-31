@@ -1,4 +1,4 @@
-import { Ionicons, FontAwesome, Entypo, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
@@ -9,7 +9,6 @@ import AppNavigator from './src/navigation/AppNavigator';
 import configureStore from './src/redux/store';
 
 const store = configureStore();
-
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);

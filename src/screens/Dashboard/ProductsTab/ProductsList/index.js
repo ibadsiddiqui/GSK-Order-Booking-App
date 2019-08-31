@@ -1,10 +1,10 @@
 import React from 'react';
-import Colors from '../../../../constants/Colors';
-import { View } from 'react-native'
-import Layout from '../../../../constants/Layout';
-import List from '../../../../components/common/List';
-import { mapStateToProps, mapDispatchToProps } from '../../../../redux/dispatcher';
+import { View } from 'react-native';
 import { connect } from "react-redux";
+import List from '../../../../components/common/List';
+import Colors from '../../../../constants/Colors';
+import Layout from '../../../../constants/Layout';
+import { mapDispatchToProps, mapStateToProps } from '../../../../redux/dispatcher';
 
 class ProductListScreen extends React.Component {
     static navigationOptions = {
@@ -18,7 +18,7 @@ class ProductListScreen extends React.Component {
         },
     };
 
-    onPress(productInfo) {
+    onPress = (productInfo) => {
         return this.props.navigation.navigate('ProductInfo', { productInfo: productInfo })
     }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BackHandler, Image, SectionList, StyleSheet, Text, View } from 'react-native';
 
-export default class ProductInfo extends React.Component {
+export default class ShopInfoScreen extends React.Component {
     componentDidMount() {
         this.backhandler = BackHandler.addEventListener('hardwareBackPress', () => this.props.navigation.navigate('Main'))
     }
@@ -11,12 +11,13 @@ export default class ProductInfo extends React.Component {
     }
 
     render() {
-        const productInfo = this.props.navigation.getParam("productInfo", {});
+        const shopInfo = this.props.navigation.getParam("shopInfo", {});
         const sections = [
-            { data: [{ value: productInfo.id }], title: 'Product ID:' },
-            { data: [{ value: productInfo.name }], title: 'Product Name:' },
-            { data: [{ value: productInfo.tradePrice }], title: 'Trading Price:' },
-            { data: [{ value: productInfo.mrp }], title: 'MRP:' },
+            { data: [{ value: shopInfo.id }], title: 'Shop ID:' },
+            { data: [{ value: shopInfo.shopName }], title: 'Shop Name:' },
+            { data: [{ value: shopInfo.shopOwnerName }], title: 'Shop Owner Name:' },
+            { data: [{ value: shopInfo.shopOwnerID }], title: 'Owner ID:' },
+            { data: [{ value: shopInfo.shopOwnerCellNumber }], title: 'Contact Number:' },
         ]
         return (
             <SectionList
@@ -24,7 +25,7 @@ export default class ProductInfo extends React.Component {
                 renderItem={this._renderItem}
                 renderSectionHeader={this._renderSectionHeader}
                 stickySectionHeadersEnabled={true}
-                keyExtractor={(item, index) => index}
+                keyExtractor={(_, index) => index}
                 ListHeaderComponent={ListHeader}
                 sections={sections}
             />
@@ -36,16 +37,12 @@ export default class ProductInfo extends React.Component {
     };
 
     _renderItem = ({ item }) => {
-        if (item.type === 'color') {
-            return <SectionContent>{item.value && <Color value={item.value} />}</SectionContent>;
-        } else {
-            return (
-                <SectionContent>
-                    <Text style={styles.sectionContentText}>{item.value}</Text>
-                </SectionContent>
-            );
-        }
-    };
+        return (
+            <SectionContent>
+                <Text style={styles.sectionContentText}>{item.value}</Text>
+            </SectionContent>
+        );
+    }
 }
 
 const ListHeader = () => {
@@ -57,7 +54,7 @@ const ListHeader = () => {
 
             <View style={styles.titleTextContainer}>
                 <Text style={styles.nameText} numberOfLines={1}>
-                    GSK Product
+                    Shop Details:
                 </Text>
             </View>
         </View>
@@ -78,21 +75,6 @@ const SectionContent = props => {
 
 const AppIconPreview = () => {
     return <Image source={require('./../../assets/images/robot-prod.png')} style={{ width: 64, height: 64 }} resizeMode="cover" />;
-};
-
-const Color = ({ value }) => {
-    if (!value) {
-        return <View />;
-    } else {
-        return (
-            <View style={styles.colorContainer}>
-                <View style={[styles.colorPreview, { backgroundColor: value }]} />
-                <View style={styles.colorTextContainer}>
-                    <Text style={styles.sectionContentText}>{value}</Text>
-                </View>
-            </View>
-        );
-    }
 };
 
 const styles = StyleSheet.create({
@@ -134,30 +116,5 @@ const styles = StyleSheet.create({
     nameText: {
         fontWeight: '600',
         fontSize: 20,
-    },
-    slugText: {
-        color: '#a39f9f',
-        fontSize: 14,
-        backgroundColor: 'transparent',
-    },
-    descriptionText: {
-        fontSize: 14,
-        marginTop: 6,
-        color: '#4d4d4d',
-    },
-    colorContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    colorPreview: {
-        width: 17,
-        height: 17,
-        borderRadius: 2,
-        marginRight: 6,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#ddd',
-    },
-    colorTextContainer: {
-        flex: 1,
     },
 });

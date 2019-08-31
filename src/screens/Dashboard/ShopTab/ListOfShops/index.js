@@ -1,16 +1,12 @@
-import { Entypo, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { Dimensions, FlatList, Text, TouchableOpacity, View } from 'react-native';
-import { _keyExtractor } from '../../../../commons/utils';
-import TabBarIcon from '../../../../components/TabBarIcon';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
+import { connect } from 'react-redux';
+import List from '../../../../components/common/List';
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
-import ProductLists from '../../../../constants/ProductsList';
-const { width } = Dimensions.get('window')
-import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../../../../redux/dispatcher';
-import configureStore from '../../../../redux/store';
-import List from '../../../../components/common/List';
+const { width } = Dimensions.get('window')
 
 class ListOfShops extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -34,14 +30,12 @@ class ListOfShops extends React.Component {
 
     };
 
-    onPress(productInfo) {
-        // return this.props.navigation.navigate('ProductInfo', { productInfo: productInfo })
+    onPress = (shopInfo) => {
+        return this.props.navigation.navigate('ShopInfo', { shopInfo: shopInfo })
     }
 
     render() {
         const { registeredListOfShops } = this.props;
-        console.log(registeredListOfShops);
-
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>

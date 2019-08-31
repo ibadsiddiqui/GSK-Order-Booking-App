@@ -49,24 +49,33 @@ class AddNewOrder extends React.Component {
     _navigateToMap = () => this.props.navigation.navigate('MapView');
 
     render() {
-        const { orderIssueDate, orderDeliveryDate, productLists } = this.props;
+        const { orderIssueDate, orderDeliveryDate, productLists, shopDetails, navigation } = this.props;
         const itemSelected = productLists.filter((item) => item.qty > 0);
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
-                        <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
+                        <TouchableOpacity onPress={() => navigation.navigate('AddShopToOrder')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
                                 <TabBarIcon name="ios-calendar" focused={true} />
                             </View>
                             <View style={[Layout.tableCell, styles.labelStyle]}>
                                 <Text style={{ fontSize: 14 }}>Customer Name: </Text>
                             </View>
-                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
-                                <View >
-                                    <Text>Select Name</Text>
-                                </View>
-                            </View>
+                            {
+                                _.isEmpty(shopDetails) ?
+                                    <View style={[Layout.tableCell, styles.datePickerBtn]}>
+                                        <View >
+                                            <Text>Select Name</Text>
+                                        </View>
+                                    </View>
+                                    :
+                                    <View style={[Layout.tableCell, styles.datePickerBtn]}>
+                                        <View >
+                                            <Text>{shopDetails.shopName}</Text>
+                                        </View>
+                                    </View>
+                            }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>

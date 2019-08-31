@@ -1,9 +1,10 @@
+import { Button, Container, Content, Form, Input, Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { Text } from 'react-native'
-import { Container, Content, Form, Item, Input, Label, Button, Col } from 'native-base';
+import { Text } from 'react-native';
+import { connect } from 'react-redux';
+import uuid4 from 'uuid/v4';
 import HeaderLeftBtn from '../../components/screen/AddProductToOrder/HeadeLeftBtn';
 import Colors from '../../constants/Colors';
-import { connect } from 'react-redux';
 import { mapDispatchToProps, mapStateToProps } from '../../redux/dispatcher';
 
 class AddShopScreen extends Component {
@@ -29,6 +30,7 @@ class AddShopScreen extends Component {
         const { shopName, shopOwnerName,
             shopOwnerID, shopOwnerCellNumber } = this.props;
         this.props.addShopToRegisteredList({
+            id: uuid4(),
             shopName, shopOwnerName,
             shopOwnerID, shopOwnerCellNumber,
             orders: [],

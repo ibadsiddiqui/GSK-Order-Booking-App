@@ -1,6 +1,6 @@
-import { AddOrderCustomerDetails, AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
+import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, ResetOrderProducts, resetOrderShopPicture } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
-import { addShopName, addShopOwnerName, addShopOwnerID, addShopOwnerCellNumber, addShopToRegisteredList } from "../actions/ShopsActions";
+import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList } from "../actions/ShopsActions";
 
 export const mapStateToProps = (state) => {
     return {
@@ -15,6 +15,7 @@ export const mapStateToProps = (state) => {
         registeredListOfShops: state.shops.registeredListOfShops,
 
         // from orders reducer
+        shopDetails: state.orders.shopDetails,
         orderIssueDate: state.orders.orderIssueDate,
         orderDeliveryDate: state.orders.orderDeliveryDate,
         selectedProducts: state.orders.selectedProducts,
@@ -33,7 +34,7 @@ export const mapDispatchToProps = (dispatch) => {
         setOrderDeliveryDate: (date) => {
             dispatch(AddOrderDeliveryDate(date))
         },
-        addOrderCustomerDetails: () => dispatch(AddOrderCustomerDetails()),
+        addOrderShopDetails: (data) => dispatch(AddOrderShopDetails(data)),
         addProductToOrder: (product) => dispatch(AddOrderProducts(product)),
         resetOrderProducts: () => dispatch(ResetOrderProducts()),
         addOrderGeoLocation: (location) => dispatch(AddOrderGeoLocation(location)),
