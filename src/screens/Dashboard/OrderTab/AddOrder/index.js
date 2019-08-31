@@ -1,17 +1,19 @@
-import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import _ from 'lodash';
 import React from 'react';
 import { Text, View, Picker } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import TabBarIcon from '../../../../components/TabBarIcon';
+import uuid4 from 'uuid/v4'
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
 import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
-import { generateRange } from "../../../../commons/utils";
+import { generateRange, pickDocument, getLocaleDateString } from "../../../../commons/utils";
+import OrdersController from "../../../../controllers/OrdersController";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
@@ -39,7 +41,6 @@ class AddNewOrder extends React.Component {
 
     _selectImage = async (key) => {
         let result = await UploadImage(key)
-        // console.log(result);
         if (result.cancelled) return;
         else {
             this.props.addOrderShopPicture(`data:image/jpeg;base64,${result.base64}`);
@@ -48,6 +49,15 @@ class AddNewOrder extends React.Component {
     }
 
     _navigateToMap = () => this.props.navigation.navigate('MapView');
+
+    pickDocumentForOrder = async () => {
+        if (this.props.attachmentToOrder === "") {
+            let result = await pickDocument();
+            if (result.uri)
+                this.props.addAttachmentToOrder(result.uri)
+        } else this.props.addAttachmentToOrder("")
+        return
+    }
 
     render() {
         const { orderIssueDate, orderDeliveryDate, productLists, shopDetails, navigation } = this.props;
@@ -174,6 +184,7 @@ class AddNewOrder extends React.Component {
                                     style={{ height: 50, width: 100 }}
                                     selectedValue={this.props.discount}
                                     onValueChange={(value, index) => this.props.addOrderDiscount(value)}>
+                                    <Picker.Item label={0 + "%"} value={0} />
                                     {generateRange()}
                                 </Picker>
                             </View>
@@ -200,15 +211,19 @@ class AddNewOrder extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
-                <View style={{ position: 'absolute', left: 10, bottom: 25 }}>
-                    <TouchableOpacity>
-                        <View style={[styles.submitBtn, { width: 50, }]}>
-                            <MaterialCommunityIcons name="file-document-box-multiple-outline" color='white' size={30} />
+                <View style={{ position: 'absolute', left: 10, bottom: 25, elevation: 10 }}>
+                    <TouchableOpacity onPress={this.pickDocumentForOrder}>
+                        <View style={[styles.submitBtn, { width: 50, backgroundColor: this.props.attachmentToOrder == "" ? Colors.primary : Colors.white }]}>
+                            {
+                                _.isEmpty(this.props.attachmentToOrder) ?
+                                    <MaterialCommunityIcons name="file-document-box-multiple-outline" color='white' size={30} />
+                                    : <MaterialIcons name="cancel" color={Colors.primary} size={50} />
+                            }
                         </View>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.btnContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.submitOrder}>
                         <View style={styles.submitBtn}>
                             <AntDesign name="check" color='white' size={15} />
                             <Text style={styles.submitBtnText}>Submit</Text>
@@ -217,6 +232,46 @@ class AddNewOrder extends React.Component {
                 </View>
             </View >
         );
+    }
+
+    submitOrder = async () => {
+        const orderID = uuid4()
+        const { addShopOrderToList, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, productLists, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
+        await this.props.addProductToOrder(productLists.filter((item) => item.qty > 0))
+        if (orderIssueDate && shopDetails && orderDeliveryDate && selectedProducts && orderGeoLocation && orderLocationPicture) {
+            const { addOrderToReceivedOrderList, createOrder, orderIssueDate, } = this.props;
+            let isNewDate = typeof ordersReceivedList.find((item) => item.date === getLocaleDateString(orderIssueDate)) === "undefined" ? true : false;
+            if (ordersReceivedList.length === 0 || isNewDate) {
+                await createOrder({
+                    date: getLocaleDateString(orderIssueDate),
+                    data: [{
+                        orderID,
+                        attachmentToOrder,
+                        orderIssueDate,
+                        shopDetails,
+                        orderDeliveryDate,
+                        selectedProducts,
+                        orderGeoLocation,
+                        orderLocationPicture
+                    }]
+                });
+                await addShopOrderToList(shopDetails.id, orderID);
+                OrdersController.resetOrderdetails(this.props);
+            } else {
+                await addOrderToReceivedOrderList(getLocaleDateString(orderIssueDate), {
+                    orderID,
+                    attachmentToOrder,
+                    orderIssueDate,
+                    shopDetails,
+                    orderDeliveryDate,
+                    selectedProducts,
+                    orderGeoLocation,
+                    orderLocationPicture
+                });
+                await addShopOrderToList(shopDetails.id, orderID)
+                OrdersController.resetOrderdetails(this.props);
+            }
+        }
     }
 }
 
