@@ -21,7 +21,7 @@ const ProductsReducer = (state = initialState, action) => {
         case RESET_PRODUCTS_FOR_ORDER:
             return {
                 ...state,
-                productLists: [...state.productLists],
+                productLists: [...ProductLists],
             }
         default:
             return state
