@@ -18,6 +18,7 @@ export default class ShopInfoScreen extends React.Component {
             { data: [{ value: shopInfo.shopOwnerName }], title: 'Shop Owner Name:' },
             { data: [{ value: shopInfo.shopOwnerID }], title: 'Owner ID:' },
             { data: [{ value: shopInfo.shopOwnerCellNumber }], title: 'Contact Number:' },
+            { data: [{ value: shopInfo.orders }], title: 'Orders count: ' + shopInfo.orders.length },
         ]
         return (
             <SectionList
