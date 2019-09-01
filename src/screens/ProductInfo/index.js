@@ -15,7 +15,7 @@ export default class ProductInfo extends React.Component {
         const sections = [
             { data: [{ value: productInfo.id }], title: 'Product ID:' },
             { data: [{ value: productInfo.name }], title: 'Product Name:' },
-            { data: [{ value: productInfo.tradePrice }], title: 'Trading Price:' },
+            { data: [{ value: productInfo.tradePrice }], title: 'Trade Price:' },
             { data: [{ value: productInfo.mrp }], title: 'MRP:' },
         ]
         return (
