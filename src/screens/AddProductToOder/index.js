@@ -26,7 +26,9 @@ class AddProductToOrderScreen extends React.Component {
         this.backhandler = BackHandler.addEventListener('hardwareBackPress', this.goBack)
     }
 
-    componentWillUnmount() {
+    async componentWillUnmount() {
+        const { productLists } = this.props;
+        await this.props.addProductToOrder(productLists.filter((item) => item.qty > 0))
         this.backhandler.remove()
     }
 
