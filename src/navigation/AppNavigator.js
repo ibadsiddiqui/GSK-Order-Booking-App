@@ -7,11 +7,13 @@ import ShopInfoScreen from '../screens/ShopInfo';
 import AddProductToOrderScreen from './../screens/AddProductToOder';
 import MainTabNavigator from './MainTabNavigator';
 import OrderInfo from '../screens/OrderInfo';
+import LoginScreen from '../screens/LoginScreen';
 
 export default createAppContainer(
   createSwitchNavigator({
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
+    LoginScreen: LoginScreen,
     Main: MainTabNavigator,
     ProductInfo: ProductInfo,
     ShopInfo: ShopInfoScreen,
