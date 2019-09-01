@@ -1,10 +1,12 @@
 import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList, AddOrderTotalAmount } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
 import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList, addShopOrderToList } from "../actions/ShopsActions";
+import { changeUser } from "../actions/UserActions";
 
 export const mapStateToProps = (state) => {
     return {
         // from products reducer
+        userType: state.user.userType,
         productLists: state.products.productLists,
 
         // from shop reducer
@@ -30,15 +32,14 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
     return {
-        setOrderIssueDate: (date) => {
-            dispatch(AddOrderIssueDate(date));
-        },
-        setOrderDeliveryDate: (date) => {
-            dispatch(AddOrderDeliveryDate(date))
-        },
+        // user
+        changeUser: (user) => dispatch(changeUser(user)),
+
+        //order dispatchers
+        setOrderIssueDate: (date) => dispatch(AddOrderIssueDate(date)),
+        setOrderDeliveryDate: (date) => dispatch(AddOrderDeliveryDate(date)),
         addOrderShopDetails: (data) => dispatch(AddOrderShopDetails(data)),
         addProductToOrder: (product) => dispatch(AddOrderProducts(product)),
-        // resetOrderProducts: () => dispatch(ResetOrderProducts()),
         addOrderGeoLocation: (location) => dispatch(AddOrderGeoLocation(location)),
         addOrderShopPicture: pic => dispatch(AddOrderShopPicture(pic)),
         resetOrderShopPicture: () => dispatch(resetOrderShopPicture()),

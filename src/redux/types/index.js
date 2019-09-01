@@ -1,3 +1,5 @@
+export const CHANGE_USER = "CHANGE_USER";
+
 // For Order
 export const SUBMIT_ORDER = 'SUBMIT_ORDER';
 export const ADD_ORDER_TOTAL_AMOUNT = 'ADD_ORDER_TOTAL_AMOUNT';
