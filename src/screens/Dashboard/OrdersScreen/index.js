@@ -15,7 +15,7 @@ const { width, height } = Dimensions.get('window')
 class OrdersList extends React.Component {
     static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Order Received',
+            title: 'My Orders',
             headerStyle: {
                 backgroundColor: Colors.primary,
             },
@@ -28,7 +28,7 @@ class OrdersList extends React.Component {
     }
 
     render() {
-        const { ordersReceivedList } = this.props;
+        const { ordersReceivedList, navigation } = this.props;
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>
@@ -51,21 +51,21 @@ class OrdersList extends React.Component {
                                 }}
                                 renderItem={({ item, index }) =>
                                     <TouchableOpacity style={Layout.table}
-                                        onPress={() => console.log(item.totalAmount)}
-                                        // dispatched: false,
-                                        // orderID,
-                                        // attachmentToOrder,
-                                        // orderIssueDate,
-                                        // shopDetails,
-                                        // orderDeliveryDate,
-                                        // selectedProducts,
-                                        // orderGeoLocation,
-                                        // orderLocationPicture,
-                                        // totalAmount
+                                        onPress={() => navigation.navigate('OrderInfo', { order: item })}
+                                    // dispatched: false,
+                                    // orderID,
+                                    // attachmentToOrder,
+                                    // orderIssueDate,
+                                    // shopDetails,
+                                    // orderDeliveryDate,
+                                    // selectedProducts,
+                                    // orderGeoLocation,
+                                    // orderLocationPicture,
+                                    // totalAmount
                                     >
                                         <View style={styles.btnContainer}>
                                             <View style={{ position: 'absolute' }}>
-                                                <View style={{ marginHorizontal: 10, top:12.5 }} >
+                                                <View style={{ marginHorizontal: 10, top: 12.5 }} >
                                                     <Entypo name="dot-single" size={20} color={Colors.primary} />
                                                 </View>
                                             </View>
