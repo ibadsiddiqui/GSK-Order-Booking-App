@@ -17,7 +17,17 @@ const List = (props) => {
                 }
             />
         );
-    else return (
+    else if (type === "Order View") {
+        return (
+            <FlatList style={{ width }}
+                data={props.selectedProducts}
+                keyExtractor={_keyExtractor}
+                renderItem={({ item, index }) =>
+                    <ProductItems item={item} key={index.toString()} onPress={onPress} type={type} />
+                }
+            />
+        )
+    } else return (
         <FlatList style={{ width }}
             data={productLists}
             keyExtractor={_keyExtractor}
