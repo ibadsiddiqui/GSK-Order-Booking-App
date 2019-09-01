@@ -1,4 +1,4 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList } from "../actions/OrdersActions";
+import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList, AddOrderTotalAmount } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
 import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList, addShopOrderToList } from "../actions/ShopsActions";
 
@@ -15,6 +15,7 @@ export const mapStateToProps = (state) => {
         registeredListOfShops: state.shops.registeredListOfShops,
 
         // from orders reducer
+        totalAmount: state.orders.totalAmount,
         shopDetails: state.orders.shopDetails,
         attachmentToOrder: state.orders.attachmentToOrder,
         orderIssueDate: state.orders.orderIssueDate,
@@ -45,6 +46,8 @@ export const mapDispatchToProps = (dispatch) => {
         addOrderDiscount: (discount) => dispatch(AddOrderDiscount(discount)),
         addAttachmentToOrder: (doc) => dispatch(AddAttachmentToOrder(doc)),
         addOrderToReceivedOrderList: (date, order) => dispatch(AddOrderToReceivedOrderList(date, order)),
+        addOrderTotalAmount: (amount) => dispatch(AddOrderTotalAmount(amount)),
+
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
         addProductCount: (id) => dispatch(addProductCount(id)),
@@ -56,6 +59,6 @@ export const mapDispatchToProps = (dispatch) => {
         addShopOwnerID: (id) => dispatch(addShopOwnerID(id)),
         addShopOwnerCellNumber: (num) => dispatch(addShopOwnerCellNumber(num)),
         addShopToRegisteredList: (shop) => dispatch(addShopToRegisteredList(shop)),
-        addShopOrderToList: (shopID, orderID) => dispatch(addShopOrderToList(shopID,orderID)),
+        addShopOrderToList: (shopID, orderID) => dispatch(addShopOrderToList(shopID, orderID)),
     }
 }

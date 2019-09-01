@@ -7,6 +7,16 @@ export const _keyExtractor = (item, index) => {
     return item.id;
 };
 
+export const getTradePrice = (item) => {
+    return item.tradePrice
+}
+
+
+export const addPrice = (total, tradePrice) => {
+    return total + tradePrice;
+}
+
+
 export const addItem = (array, id) => {
     return array.map((_item) =>
         _item.id === id ? {

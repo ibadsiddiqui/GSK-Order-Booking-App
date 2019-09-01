@@ -1,8 +1,9 @@
-import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_SHOP_DETAILS, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_SHOP_PICTURE_FOR_ORDER, ADD_ORDER_DISCOUNT, ADD_ATTACHMENT_TO_ORDER, SUBMIT_ORDER } from "../types";
+import { ADD_DELIVERY_DATE_FOR_ORDER, ADD_GEOLOCATION_FOR_ORDER, ADD_ISSUE_DATE_FOR_ORDER, ADD_PRODUCT_FOR_ORDER, ADD_SHOP_DETAILS, ADD_SHOP_PICTURE_FOR_ORDER, PUSH_ORDER_TO_RECEIVED_LIST, RESET_SHOP_PICTURE_FOR_ORDER, ADD_ORDER_DISCOUNT, ADD_ATTACHMENT_TO_ORDER, SUBMIT_ORDER, ADD_ORDER_TOTAL_AMOUNT } from "../types";
 import { sortArrayAccordingToDate, sortArrayAccordingToTime } from "../../commons/utils";
 
 const initialState = {
     shopDetails: new Object,
+    totalAmount: new Number(0),
     attachmentToOrder: "",
     orderIssueDate: new Date().toLocaleDateString(),
     orderDeliveryDate: new Date().toLocaleDateString(),
@@ -15,6 +16,11 @@ const initialState = {
 
 const OrdersReducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_ORDER_TOTAL_AMOUNT:
+            return {
+                ...state,
+                totalAmount: action.payload
+            }
         case ADD_SHOP_DETAILS:
             return {
                 ...state,
@@ -61,13 +67,13 @@ const OrdersReducer = (state = initialState, action) => {
                 attachmentToOrder: action.payload
             }
 
-            case SUBMIT_ORDER:
+        case SUBMIT_ORDER:
             return {
                 ...state,
                 ordersReceivedList: sortArrayAccordingToDate(state.ordersReceivedList.concat(action.payload)),
             }
 
-            case PUSH_ORDER_TO_RECEIVED_LIST:
+        case PUSH_ORDER_TO_RECEIVED_LIST:
             return {
                 ...state,
                 ordersReceivedList: state.ordersReceivedList.map((item, index) => {
