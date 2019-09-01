@@ -9,7 +9,6 @@ import { Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import OrdersScreen from '../screens/Dashboard/OrdersScreen';
 
-
 const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
@@ -92,7 +91,6 @@ SettingsStack.path = '';
 
 
 const tabNavigator = createBottomTabNavigator({
-  // HomeStack,
   ShopsStack,
   AddOrderStack,
   ProductsStack,

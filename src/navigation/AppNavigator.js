@@ -6,6 +6,7 @@ import ProductInfo from '../screens/ProductInfo';
 import ShopInfoScreen from '../screens/ShopInfo';
 import AddProductToOrderScreen from './../screens/AddProductToOder';
 import MainTabNavigator from './MainTabNavigator';
+import OrderInfo from '../screens/OrderInfo';
 
 export default createAppContainer(
   createSwitchNavigator({
@@ -17,7 +18,7 @@ export default createAppContainer(
     AddProductToOrder: createStackNavigator({ screen: AddProductToOrderScreen }),
     AddShopToOrder: createStackNavigator({ AddShopToOrderScreen }),
     MapView: MapViewScreen,
-    AddShop: createStackNavigator({ screen: AddShopScreen })
-
+    AddShop: createStackNavigator({ screen: AddShopScreen }),
+    OrderInfo: OrderInfo,
   })
 );
