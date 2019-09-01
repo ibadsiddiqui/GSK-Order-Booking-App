@@ -1,4 +1,4 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList, AddOrderTotalAmount } from "../actions/OrdersActions";
+import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList, AddOrderTotalAmount, ToggleDispatchStatus } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
 import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList, addShopOrderToList } from "../actions/ShopsActions";
 import { changeUser } from "../actions/UserActions";
@@ -48,7 +48,7 @@ export const mapDispatchToProps = (dispatch) => {
         addAttachmentToOrder: (doc) => dispatch(AddAttachmentToOrder(doc)),
         addOrderToReceivedOrderList: (date, order) => dispatch(AddOrderToReceivedOrderList(date, order)),
         addOrderTotalAmount: (amount) => dispatch(AddOrderTotalAmount(amount)),
-
+        toggleDispatchStatus: (date, orderID) => dispatch(ToggleDispatchStatus(date, orderID)),
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
         addProductCount: (id) => dispatch(addProductCount(id)),
