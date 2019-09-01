@@ -11,7 +11,7 @@ import OrderInfo from '../screens/OrderInfo';
 import LoginScreen from '../screens/LoginScreen';
 
 export default createAppContainer(
-  createSwitchNavigator({
+  createStackNavigator({
     // You could add another route here for authentication.
     // Read more at https://reactnavigation.org/docs/en/auth-flow.html
     LoginScreen: LoginScreen,
@@ -24,5 +24,9 @@ export default createAppContainer(
     MapView: MapViewScreen,
     AddShop: createStackNavigator({ screen: AddShopScreen }),
     OrderInfo: OrderInfo,
-  })
+  }, {
+      defaultNavigationOptions: {
+        header: null
+      },
+    })
 );
