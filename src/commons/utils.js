@@ -11,9 +11,12 @@ export const getTradePrice = (item) => {
     return item.tradePrice
 }
 
+export const getQuantity = (item) => {
+    return item.qty
+}
 
-export const addPrice = (total, tradePrice) => {
-    return total + tradePrice;
+export const addPriceWithQuantity = (total, tradePrice, index, qtyList) => {
+    return total + tradePrice * qtyList[index]
 }
 
 
