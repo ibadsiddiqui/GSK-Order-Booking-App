@@ -1,6 +1,7 @@
 import React from 'react';
 import { Picker } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
+import _ from 'lodash'
 
 import moment from 'moment'
 export const _keyExtractor = (item, index) => {
@@ -75,4 +76,8 @@ export function sortArrayAccordingToDate(array) {
 
 export function sortArrayAccordingToTime(array) {
     return array.sort((a, b) => new Date(a.orderIssueDate) - new Date(b.orderIssueDate));
+}
+
+export function returnEmptyIfNull(val) {
+    return _.isNull(val) ? "" : val
 }
