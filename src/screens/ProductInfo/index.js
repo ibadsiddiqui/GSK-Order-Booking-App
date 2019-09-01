@@ -1,16 +1,11 @@
 import React from 'react';
-import { BackHandler, SectionList, StyleSheet, Text } from 'react-native';
+import { SectionList, StyleSheet, Text } from 'react-native';
 import SectionContent from '../../components/common/SectionListComponents/SectionContent';
 import Color from '../../components/common/SectionListComponents/Item';
 import ListHeader from '../../components/common/SectionListComponents/ListHeader';
 import SectionHeader from '../../components/common/SectionListComponents/SectionHeader';
 
 export default class ProductInfo extends React.Component {
-    componentDidMount() {
-        this.backhandler = BackHandler.addEventListener('hardwareBackPress', () => this.props.navigation.navigate('BookerDashboard'))
-    }
-
-    componentWillUnmount = () => this.backhandler.remove();
 
     render() {
         const productInfo = this.props.navigation.getParam("productInfo", {});

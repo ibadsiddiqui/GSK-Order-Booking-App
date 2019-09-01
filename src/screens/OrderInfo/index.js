@@ -1,23 +1,15 @@
 import React from 'react';
-import { Dimensions, BackHandler, Image, SectionList, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, BackHandler, Image, SectionList, StyleSheet, Text } from 'react-native';
 import { returnEmptyIfNull, getQuantity } from '../../commons/utils';
 import SectionContent from '../../components/common/SectionListComponents/SectionContent';
-import AppIconPreview from '../../components/common/SectionListComponents/AppIconPreview';
 import SectionHeader from '../../components/common/SectionListComponents/SectionHeader';
 import Color from '../../components/common/SectionListComponents/Item';
 import ListHeader from '../../components/common/SectionListComponents/ListHeader';
 import List from '../../components/common/List';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
 
 export default class OrderInfo extends React.Component {
-
-    componentDidMount() {
-        this.backhandler = BackHandler.addEventListener('hardwareBackPress', () => this.props.navigation.navigate('Settings'))
-    }
-
-    componentWillUnmount = () => this.backhandler.remove();
 
     locationName = (loc) => {
         return returnEmptyIfNull(loc.name) + " " + returnEmptyIfNull(loc.street) + " " + returnEmptyIfNull(loc.postalCode) + " " + returnEmptyIfNull(loc.city) + " " + returnEmptyIfNull(loc.country)
