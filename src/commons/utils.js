@@ -81,3 +81,12 @@ export function sortArrayAccordingToTime(array) {
 export function returnEmptyIfNull(val) {
     return _.isNull(val) ? "" : val
 }
+
+
+export function amountCheckerForDayEndSale(array) {
+    if (array.filter((_item, _index) => _item.dispatched).length === 0)
+        return 0
+    else {
+        return array.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).reduce((prevVal, curVal) => prevVal + curVal).toFixed(2)
+    }
+}

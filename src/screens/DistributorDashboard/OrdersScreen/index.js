@@ -3,7 +3,7 @@ import { View, Text, SectionList, Dimensions } from 'react-native'
 import Colors from '../../../constants/Colors';
 import { mapStateToProps, mapDispatchToProps } from '../../../redux/dispatcher';
 import { connect } from 'react-redux'
-import { _keyExtractor, slicingMomentDateUsingAt } from '../../../commons/utils';
+import { _keyExtractor, slicingMomentDateUsingAt, amountCheckerForDayEndSale } from '../../../commons/utils';
 import styles from './styles';
 import { Entypo } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -43,16 +43,12 @@ class OrdersList extends React.Component {
                                 sections={ordersReceivedList}
                                 keyExtractor={_keyExtractor}
                                 renderSectionHeader={({ section, }) => {
-                                    // data =
-                                    // console.log(data.reduce((prevVal, curVal) => prevVal + curVal));
-
-                                    // [0].selectedProducts[0].tradePrice);
-                                    // console.log(
-
+                                    
                                     return (
                                         <View style={styles.dayHeadingContainer}>
-                                            {/* <Text style={styles.dayHeadingText}> {slicingMomentDateUsingAt(section.date)}</Text> */}
-                                            <Text style={styles.dayHeadingText}> Total Sale For {slicingMomentDateUsingAt(section.date)}: PKR {section.data.map((_item, _index) => _item.totalAmount).reduce((prevVal, curVal) => prevVal + curVal).toFixed(2)}
+                                            <Text style={styles.dayHeadingText}>
+                                                Total Sale For {slicingMomentDateUsingAt(section.date)}:
+                                                PKR {amountCheckerForDayEndSale(section.data)}
                                             </Text>
                                         </View >
                                     )
@@ -60,6 +56,7 @@ class OrdersList extends React.Component {
                                 renderItem={({ item, index }) =>
                                     <TouchableOpacity style={Layout.table}
                                         onPress={() => navigation.navigate('OrderInfo', { order: item })}
+                                        
                                     // dispatched: false,
                                     // orderID,
                                     // attachmentToOrder,
