@@ -2,18 +2,9 @@ import { AntDesign } from "@expo/vector-icons";
 import _ from 'lodash';
 import React from 'react';
 import { Text, View, Picker } from 'react-native';
-// import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-// import { connect } from "react-redux";
-// import TabBarIcon from '../../../../components/TabBarIcon';
-// import uuid4 from 'uuid/v4'
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
-// import { pickDateForOrder } from "../../../../helpers/DateHelpers";
-// import { UploadImage } from "../../../../helpers/ImageHelper";
-// import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
-// import styles from "./styles";
-import { generateRange, getQuantity, getTradePrice } from "../../../../commons/utils";
-// import OrdersController from "../../../../controllers/OrdersController";
+import { generateRange, getQuantity, getTradePrice, addPriceWithQuantity } from "../../../../commons/utils";
 
 const DiscountPicker = (props) => {
     const { discount } = props;
