@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import {  Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import List from '../../../../components/common/List';
 import Colors from '../../../../constants/Colors';
@@ -34,7 +34,7 @@ class ListOfShops extends React.Component {
     }
 
     render() {
-        const { registeredListOfShops } = this.props;
+        const { registeredListOfShops, userType } = this.props;
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>
