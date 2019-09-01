@@ -12,9 +12,8 @@ import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
-import { generateRange, pickDocument, getLocaleDateString } from "../../../../commons/utils";
+import { generateRange, pickDocument, getLocaleDateString, getTradePrice, addPrice } from "../../../../commons/utils";
 import OrdersController from "../../../../controllers/OrdersController";
-
 class AddNewOrder extends React.Component {
     static navigationOptions = {
         title: 'Create Order',
@@ -62,10 +61,24 @@ class AddNewOrder extends React.Component {
     render() {
         const { orderIssueDate, orderDeliveryDate, productLists, shopDetails, navigation } = this.props;
         const itemSelected = productLists.filter((item) => item.qty > 0);
+        const listOfPrice = itemSelected.map(getTradePrice);
+        const totalPrice = listOfPrice.reduce(addPrice, 0);
+        this.props.addOrderTotalAmount(totalPrice - totalPrice * (this.props.discount / 100))
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
+                        <View style={Layout.tableRow}>
+                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
+                                <Ionicons name="ios-wallet" color={Colors.primary} size={26} />
+                            </View>
+                            <View style={[Layout.tableCell, styles.labelStyle]}>
+                                <Text style={{ fontSize: 14 }}>Total Amount</Text>
+                            </View>
+                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
+                                <Text>PKR: {this.props.totalAmount.toFixed(2)}</Text>
+                            </View>
+                        </View>
                         <TouchableOpacity onPress={() => navigation.navigate('AddShopToOrder')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
                                 <TabBarIcon name="ios-calendar" focused={true} />
@@ -211,6 +224,7 @@ class AddNewOrder extends React.Component {
                         </View>
                     </ScrollView>
                 </View>
+
                 <View style={{ position: 'absolute', left: 10, bottom: 25, elevation: 10 }}>
                     <TouchableOpacity onPress={this.pickDocumentForOrder}>
                         <View style={[styles.submitBtn, { width: 50, backgroundColor: this.props.attachmentToOrder == "" ? Colors.primary : Colors.white }]}>
@@ -236,7 +250,7 @@ class AddNewOrder extends React.Component {
 
     submitOrder = async () => {
         const orderID = uuid4()
-        const { addShopOrderToList, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, productLists, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
+        const { addShopOrderToList, totalAmount, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, productLists, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
         await this.props.addProductToOrder(productLists.filter((item) => item.qty > 0))
         if (orderIssueDate && shopDetails && orderDeliveryDate && selectedProducts && orderGeoLocation && orderLocationPicture) {
             const { addOrderToReceivedOrderList, createOrder, orderIssueDate, } = this.props;
@@ -252,7 +266,8 @@ class AddNewOrder extends React.Component {
                         orderDeliveryDate,
                         selectedProducts,
                         orderGeoLocation,
-                        orderLocationPicture
+                        orderLocationPicture,
+                        totalAmount
                     }]
                 });
                 await addShopOrderToList(shopDetails.id, orderID);
@@ -261,6 +276,7 @@ class AddNewOrder extends React.Component {
                 await addOrderToReceivedOrderList(getLocaleDateString(orderIssueDate), {
                     orderID,
                     attachmentToOrder,
+                    totalAmount,
                     orderIssueDate,
                     shopDetails,
                     orderDeliveryDate,
