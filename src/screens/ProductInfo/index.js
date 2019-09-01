@@ -7,7 +7,7 @@ import SectionHeader from '../../components/common/SectionListComponents/Section
 
 export default class ProductInfo extends React.Component {
     componentDidMount() {
-        this.backhandler = BackHandler.addEventListener('hardwareBackPress', () => this.props.navigation.navigate('Main'))
+        this.backhandler = BackHandler.addEventListener('hardwareBackPress', () => this.props.navigation.navigate('BookerDashboard'))
     }
 
     componentWillUnmount = () => this.backhandler.remove();
