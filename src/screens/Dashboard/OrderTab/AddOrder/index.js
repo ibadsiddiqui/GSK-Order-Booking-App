@@ -246,6 +246,7 @@ class AddNewOrder extends React.Component {
             const { addOrderToReceivedOrderList, createOrder, orderIssueDate, } = this.props;
             let isNewDate = typeof ordersReceivedList.find((item) => item.date === getLocaleDateString(orderIssueDate)) === "undefined" ? true : false;
             if (ordersReceivedList.length === 0 || isNewDate) {
+                await addShopOrderToList(shopDetails.id, orderID);
                 await createOrder({
                     date: getLocaleDateString(orderIssueDate),
                     data: [{
@@ -261,9 +262,9 @@ class AddNewOrder extends React.Component {
                         totalAmount
                     }]
                 });
-                await addShopOrderToList(shopDetails.id, orderID);
-                OrdersController.resetOrderdetails(this.props);
+                await OrdersController.resetOrderdetails(this.props);
             } else {
+                await addShopOrderToList(shopDetails.id, orderID)
                 await addOrderToReceivedOrderList(getLocaleDateString(orderIssueDate), {
                     dispatched: false,
                     orderID,
@@ -276,8 +277,7 @@ class AddNewOrder extends React.Component {
                     orderGeoLocation,
                     orderLocationPicture
                 });
-                await addShopOrderToList(shopDetails.id, orderID)
-                OrdersController.resetOrderdetails(this.props);
+                await OrdersController.resetOrderdetails(this.props);
             }
         }
     }
