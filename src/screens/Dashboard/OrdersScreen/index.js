@@ -51,7 +51,17 @@ class OrdersList extends React.Component {
                                 }}
                                 renderItem={({ item, index }) =>
                                     <TouchableOpacity style={Layout.table}
-                                        onPress={() => console.log(item.shopDetails)}
+                                        onPress={() => console.log(item.totalAmount)}
+                                        // dispatched: false,
+                                        // orderID,
+                                        // attachmentToOrder,
+                                        // orderIssueDate,
+                                        // shopDetails,
+                                        // orderDeliveryDate,
+                                        // selectedProducts,
+                                        // orderGeoLocation,
+                                        // orderLocationPicture,
+                                        // totalAmount
                                     >
                                         <View style={styles.btnContainer}>
                                             <View style={{ position: 'absolute' }}>

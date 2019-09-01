@@ -4,7 +4,6 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import AddNewOrder from '../screens/Dashboard/OrderTab/AddOrder';
 import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
-import HomeScreen from '../screens/HomeScreen';
 import ListOfShops from '../screens/Dashboard/ShopTab/ListOfShops';
 import { Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
@@ -15,29 +14,6 @@ const config = Platform.select({
   web: { headerMode: 'screen' },
   default: {},
 });
-
-const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
-  config
-);
-
-HomeStack.navigationOptions = {
-  // tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-HomeStack.path = '';
 
 const ShopsStack = createStackNavigator(
   {
