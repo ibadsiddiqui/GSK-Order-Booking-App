@@ -2,11 +2,11 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
-import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
-import ListOfShops from '../screens/Dashboard/ShopTab/ListOfShops';
+import ProductListScreen from '../screens/DistributorDashboard/ProductsTab/ProductsList';
+import ListOfShops from '../screens/DistributorDashboard/ShopTab/ListOfShops';
 import { Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
-import OrdersScreen from '../screens/Dashboard/OrdersScreen';
+import OrdersScreen from '../screens/DistributorDashboard/OrdersScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
