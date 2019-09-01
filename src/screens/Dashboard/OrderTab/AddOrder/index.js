@@ -1,7 +1,7 @@
 import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import _ from 'lodash';
 import React from 'react';
-import { Text, View, Picker } from 'react-native';
+import { Text, View, } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import TabBarIcon from '../../../../components/TabBarIcon';
@@ -12,8 +12,10 @@ import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
-import { generateRange, pickDocument, getLocaleDateString, getTradePrice, addPrice } from "../../../../commons/utils";
+import { pickDocument, getLocaleDateString, getTradePrice, getQuantity, addPriceWithQuantity } from "../../../../commons/utils";
 import OrdersController from "../../../../controllers/OrdersController";
+import DiscountPicker from "../../../../components/screen/AddOrder/DiscountPicker";
+
 class AddNewOrder extends React.Component {
     static navigationOptions = {
         title: 'Create Order',
@@ -58,12 +60,17 @@ class AddNewOrder extends React.Component {
         return
     }
 
-    render() {
-        const { orderIssueDate, orderDeliveryDate, productLists, shopDetails, navigation } = this.props;
+    componentWillUpdate(nextProps, nextState) {
+        const { productLists } = this.props;
         const itemSelected = productLists.filter((item) => item.qty > 0);
         const listOfPrice = itemSelected.map(getTradePrice);
-        const totalPrice = listOfPrice.reduce(addPrice, 0);
+        const quantity = itemSelected.map(getQuantity);
+        const totalPrice = listOfPrice.reduce((r, a, i) => addPriceWithQuantity(r, a, i, quantity), 0)
         this.props.addOrderTotalAmount(totalPrice - totalPrice * (this.props.discount / 100))
+    }
+
+    render() {
+        const { orderIssueDate, orderDeliveryDate, selectedProducts, shopDetails, navigation } = this.props;
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
@@ -138,9 +145,9 @@ class AddNewOrder extends React.Component {
                             </View>
                             <View style={[Layout.tableCell, styles.itemSelected]}>
                                 {
-                                    itemSelected.length === 0 ?
+                                    selectedProducts.length === 0 ?
                                         <Feather name="chevrons-right" color={Colors.tintColor} size={30} /> :
-                                        <Text style={{ fontSize: 14 }}>Total Items: {itemSelected.length}</Text>
+                                        <Text style={{ fontSize: 14 }}>Total Items: {selectedProducts.length}</Text>
                                 }
                             </View>
                         </TouchableOpacity>
@@ -185,23 +192,7 @@ class AddNewOrder extends React.Component {
                                     </View>
                             }
                         </View>
-                        <View style={[Layout.tableRow, { marginTop: 20 }]}>
-                            <View style={[Layout.tableCell, { flex: 0.35, paddingLeft: 12.5 }]}>
-                                <AntDesign name="picture" color={Colors.tintColor} size={30} />
-                            </View>
-                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
-                                <Text style={{ fontSize: 14 }}>Add Discount: </Text>
-                            </View>
-                            <View style={[Layout.tableCell]}>
-                                <Picker mode="dialog"
-                                    style={{ height: 50, width: 100 }}
-                                    selectedValue={this.props.discount}
-                                    onValueChange={(value, index) => this.props.addOrderDiscount(value)}>
-                                    <Picker.Item label={0 + "%"} value={0} />
-                                    {generateRange()}
-                                </Picker>
-                            </View>
-                        </View>
+                        <DiscountPicker {...this.props} />
                         <View style={[Layout.tableRow, { marginTop: 15 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle, { paddingTop: 5 }]}>
                                 <FontAwesome name="location-arrow" color={Colors.tintColor} size={30} />
@@ -250,8 +241,7 @@ class AddNewOrder extends React.Component {
 
     submitOrder = async () => {
         const orderID = uuid4()
-        const { addShopOrderToList, totalAmount, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, productLists, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
-        await this.props.addProductToOrder(productLists.filter((item) => item.qty > 0))
+        const { addShopOrderToList, totalAmount, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
         if (orderIssueDate && shopDetails && orderDeliveryDate && selectedProducts && orderGeoLocation && orderLocationPicture) {
             const { addOrderToReceivedOrderList, createOrder, orderIssueDate, } = this.props;
             let isNewDate = typeof ordersReceivedList.find((item) => item.date === getLocaleDateString(orderIssueDate)) === "undefined" ? true : false;
@@ -259,6 +249,7 @@ class AddNewOrder extends React.Component {
                 await createOrder({
                     date: getLocaleDateString(orderIssueDate),
                     data: [{
+                        dispatched: false,
                         orderID,
                         attachmentToOrder,
                         orderIssueDate,
@@ -274,6 +265,7 @@ class AddNewOrder extends React.Component {
                 OrdersController.resetOrderdetails(this.props);
             } else {
                 await addOrderToReceivedOrderList(getLocaleDateString(orderIssueDate), {
+                    dispatched: false,
                     orderID,
                     attachmentToOrder,
                     totalAmount,
