@@ -1,7 +1,7 @@
 import { CHANGE_USER } from "../types";
 
 const initialState = {
-    userType: "Booker"
+    userType: "BOOKER"
 }
 
 const UserReducer = (state = initialState, action) => {
