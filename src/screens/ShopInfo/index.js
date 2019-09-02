@@ -1,8 +1,8 @@
 import React from 'react';
 import { SectionList, StyleSheet, Text } from 'react-native';
+import ListHeader from '../../components/common/SectionListComponents/ListHeader';
 import SectionContent from '../../components/common/SectionListComponents/SectionContent';
 import SectionHeader from '../../components/common/SectionListComponents/SectionHeader';
-import ListHeader from '../../components/common/SectionListComponents/ListHeader';
 
 export default class ShopInfoScreen extends React.Component {
 
@@ -23,7 +23,7 @@ export default class ShopInfoScreen extends React.Component {
                 renderSectionHeader={this._renderSectionHeader}
                 stickySectionHeadersEnabled={true}
                 keyExtractor={(_, index) => index}
-                ListHeaderComponent={ListHeader}
+                ListHeaderComponent={() => ListHeader()}
                 sections={sections}
             />
         );

@@ -1,17 +1,17 @@
+import { AntDesign } from '@expo/vector-icons';
 import React from 'react';
 import { Dimensions, Image, SectionList, StyleSheet, Text, View } from 'react-native';
-import { returnEmptyIfNull, getQuantity, getLocaleDateString } from '../../commons/utils';
-import SectionContent from '../../components/common/SectionListComponents/SectionContent';
-import SectionHeader from '../../components/common/SectionListComponents/SectionHeader';
-import Color from '../../components/common/SectionListComponents/Item';
-import ListHeader from '../../components/common/SectionListComponents/ListHeader';
-import List from '../../components/common/List';
 // import { } from '@expo/samples'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Colors from '../../constants/Colors';
-import { AntDesign } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from '../../redux/dispatcher';
+import { getLocaleDateString, getQuantity, returnEmptyIfNull } from '../../commons/utils';
+import List from '../../components/common/List';
+import Color from '../../components/common/SectionListComponents/Item';
+import ListHeader from '../../components/common/SectionListComponents/ListHeader';
+import SectionContent from '../../components/common/SectionListComponents/SectionContent';
+import SectionHeader from '../../components/common/SectionListComponents/SectionHeader';
+import Colors from '../../constants/Colors';
+import { mapDispatchToProps, mapStateToProps } from '../../redux/dispatcher';
 const { width } = Dimensions.get('window');
 
 class OrderInfo extends React.Component {
@@ -32,38 +32,25 @@ class OrderInfo extends React.Component {
         return <List type="Order View" selectedProducts={data[0].value} onPress={() => { }} />
     }
 
-    _dispatchOrder = (orderIssueDate, orderID) => {
-        let data = this.props.ordersReceivedList.map((order, idx) => {
-            return order.date === orderIssueDate ? {
-                date: order.date,
-                data: order.data.map((item, idx) => item.orderID === orderID ? {
-                    ...item,
-                    dispatched: !item.dispatched
-                } : item),
-            } : order
-        })
-        // this.props.toggleDispatchStatus(getLocaleDateString(orderIssueDate, orderID))
-        let dat = data.map((x, idx) => { return x.data.find((y, _idx) => y.orderID == orderID)}).length
-        console.log(dat);
-
+    _dispatchOrder = async (orderIssueDate, orderID) => {
+        await this.props.toggleDispatchStatus(getLocaleDateString(orderIssueDate), orderID)
     }
 
     render() {
-        const orderDetails = this.props.navigation.getParam("order", {});
-        const date = this.props.navigation.getParam("date", {});
-        const { orderID, orderDeliveryDate, shopDetails, orderGeoLocation, orderIssueDate, dispatched, orderLocationPicture, selectedProducts, totalAmount } = orderDetails
+        const date = this.props.navigation.getParam("issueDate", {});
+        const _orderID = this.props.navigation.getParam("order", {}).orderID;
+        const data = this.props.ordersReceivedList.find(x => x.date == date).data.find(x => x.orderID == _orderID);
+        const { orderDeliveryDate, shopDetails, orderGeoLocation, dispatched, orderLocationPicture, selectedProducts, totalAmount } = data
         const quantity = selectedProducts.map(getQuantity);
         const sections = [
             { data: [{ value: "PKR: " + totalAmount.toFixed(2) }], title: 'Total Amount:' },
             { data: [{ value: quantity.reduce((r, a) => r + a * 0) }], title: 'Item Total:' },
-            { data: [{ value: orderID }], title: 'Order ID:' },
+            { data: [{ value: _orderID }], title: 'Order ID:' },
             { data: [{ value: orderDeliveryDate }], title: 'Delivery Date:' },
             { data: [{ value: this._locationName(orderGeoLocation) }], title: 'Location:' },
             { data: [{ value: orderLocationPicture }], title: 'Picture:', renderItem: this._overrideRenderItem },
             { data: [{ value: selectedProducts }], title: 'Items List:', renderItem: this._overrideForList },
         ]
-        // console.log(this.props.userType);
-        console.log(dispatched);
         if (this.props.userType === "BOOKER")
             return (
                 <SectionList
@@ -105,7 +92,7 @@ class OrderInfo extends React.Component {
                             </View>
                         </View> :
                         <View style={{ position: 'absolute', bottom: 20, right: 15 }}>
-                            <TouchableOpacity onPress={() => this._dispatchOrder(orderIssueDate, orderID)}>
+                            <TouchableOpacity onPress={() => this._dispatchOrder(date, _orderID)}>
                                 <View style={{
                                     width: 150,
                                     elevation: 2,
