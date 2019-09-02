@@ -34,7 +34,7 @@ class ListOfShops extends React.Component {
     }
 
     render() {
-        const { registeredListOfShops, userType } = this.props;
+        const { registeredListOfShops } = this.props;
         return (
             <View style={styles.container}>
                 <View style={{ flex: 5 }}>

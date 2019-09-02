@@ -11,7 +11,6 @@ const styles = {
     },
     listContainer: {
         flex: 1,
-        marginTop: 25,
         width,
         height: width
     },
@@ -48,7 +47,7 @@ const styles = {
     },
     btnContainer: {
         position: 'absolute',
-        bottom: 20,
+        bottom: 5,
         right: 15
     },
     submitBtn: {
