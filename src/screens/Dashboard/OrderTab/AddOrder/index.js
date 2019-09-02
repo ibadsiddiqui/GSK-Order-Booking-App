@@ -1,20 +1,20 @@
 import { AntDesign, Entypo, Feather, FontAwesome, Ionicons, MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import _ from 'lodash';
 import React from 'react';
-import { Text, View, } from 'react-native';
+import { Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
+import uuid4 from 'uuid/v4';
+import { addPriceWithQuantity, getLocaleDateString, getQuantity, getTradePrice, pickDocument } from "../../../../commons/utils";
+import DiscountPicker from "../../../../components/screen/AddOrder/DiscountPicker";
 import TabBarIcon from '../../../../components/TabBarIcon';
-import uuid4 from 'uuid/v4'
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
+import OrdersController from "../../../../controllers/OrdersController";
 import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
-import { pickDocument, getLocaleDateString, getTradePrice, getQuantity, addPriceWithQuantity } from "../../../../commons/utils";
-import OrdersController from "../../../../controllers/OrdersController";
-import DiscountPicker from "../../../../components/screen/AddOrder/DiscountPicker";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
@@ -193,7 +193,7 @@ class AddNewOrder extends React.Component {
                             }
                         </View>
                         <DiscountPicker {...this.props} />
-                        <View style={[Layout.tableRow, { marginTop: 15 }]}>
+                        <View style={[Layout.tableRow]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle, { paddingTop: 5 }]}>
                                 <FontAwesome name="location-arrow" color={Colors.tintColor} size={30} />
                             </View>
@@ -216,7 +216,7 @@ class AddNewOrder extends React.Component {
                     </ScrollView>
                 </View>
 
-                <View style={{ position: 'absolute', left: 10, bottom: 25, elevation: 10 }}>
+                <View style={{ position: 'absolute', left: 10, bottom: 5, elevation: 10 }}>
                     <TouchableOpacity onPress={this.pickDocumentForOrder}>
                         <View style={[styles.submitBtn, { width: 50, backgroundColor: this.props.attachmentToOrder == "" ? Colors.primary : Colors.white }]}>
                             {
