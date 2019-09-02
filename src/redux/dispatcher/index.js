@@ -1,6 +1,6 @@
-import { AddOrderDeliveryDate, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, CreateOrder, resetOrderShopPicture, AddOrderDiscount, AddAttachmentToOrder, AddOrderToReceivedOrderList, AddOrderTotalAmount, ToggleDispatchStatus } from "../actions/OrdersActions";
+import { AddAttachmentToOrder, AddOrderDeliveryDate, AddOrderDiscount, AddOrderGeoLocation, AddOrderIssueDate, AddOrderProducts, AddOrderShopDetails, AddOrderShopPicture, AddOrderToReceivedOrderList, AddOrderTotalAmount, CreateOrder, resetOrderShopPicture, toggleDispatchStatus } from "../actions/OrdersActions";
 import { addProductCount, reduceProductCount, resetProductList } from "../actions/ProductsActions";
-import { addShopName, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList, addShopOrderToList } from "../actions/ShopsActions";
+import { addShopName, addShopOrderToList, addShopOwnerCellNumber, addShopOwnerID, addShopOwnerName, addShopToRegisteredList } from "../actions/ShopsActions";
 import { changeUser } from "../actions/UserActions";
 
 export const mapStateToProps = (state) => {
@@ -48,7 +48,8 @@ export const mapDispatchToProps = (dispatch) => {
         addAttachmentToOrder: (doc) => dispatch(AddAttachmentToOrder(doc)),
         addOrderToReceivedOrderList: (date, order) => dispatch(AddOrderToReceivedOrderList(date, order)),
         addOrderTotalAmount: (amount) => dispatch(AddOrderTotalAmount(amount)),
-        toggleDispatchStatus: (date, orderID) => dispatch(ToggleDispatchStatus(date, orderID)),
+        toggleDispatchStatus: (date, orderID) => dispatch(toggleDispatchStatus(date, orderID)),
+
         // Products Dispatchers
         resetProductList: () => dispatch(resetProductList()),
         addProductCount: (id) => dispatch(addProductCount(id)),
