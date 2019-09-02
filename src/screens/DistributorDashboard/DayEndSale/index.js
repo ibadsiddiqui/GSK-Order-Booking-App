@@ -1,20 +1,20 @@
 import { Entypo } from '@expo/vector-icons';
-import _ from 'lodash';
 import React from 'react';
 import { Dimensions, SectionList, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
-import { amountCheckerForDayEndSale, slicingMomentDateUsingAt, _keyExtractor } from '../../../commons/utils';
+import { slicingMomentDateUsingAt, _keyExtractor } from '../../../commons/utils';
 import TabBarIcon from '../../../components/TabBarIcon';
 import Colors from '../../../constants/Colors';
 import Layout from '../../../constants/Layout';
 import { mapDispatchToProps, mapStateToProps } from '../../../redux/dispatcher';
 import styles from './styles';
+
 const { width, height } = Dimensions.get('window')
 
 class DayEndSaleScreen extends React.Component {
     static navigationOptions = {
-        title: 'Day End Sale',
+        title: 'Sale',
         headerStyle: {
             backgroundColor: Colors.primary,
         },
@@ -25,41 +25,6 @@ class DayEndSaleScreen extends React.Component {
         return this.props.navigation.navigate('ShopInfo', { shopInfo: shopInfo })
     }
 
-    componentDidMount() {
-        // let productData = this.props.productLists.map((item) => item.id)
-        // let itemsSelected = this.props.ordersReceivedList.map((item, index) => {
-        //     return item.data.filter((_item, idx) => {
-        //         console.log('====================================');
-        //         console.log(_item);
-        //         console.log('====================================');
-        //         return _item.orderID === productData[idx]
-        //     })
-        // })
-        let data = _.flatten(this.props.ordersReceivedList.map((item) => item.data))
-        let nedata = _.flatten(data.filter(x => x.dispatched).map(item => {
-            return {
-                items: _.flatten(item.selectedProducts),
-                date: item.orderIssueDate
-            }
-        }))
-        console.log('====================================');
-        console.log(nedata);
-        console.log('====================================');
-        // let itemsSelected = productData.map((item, index) => {
-        //     return item.filter((_item, idx) => {
-        //         // console.log('====================================');
-        //         // console.log(_item);
-        //         // console.log('====================================');
-        //         return  this.props.ordersReceivedList.map(() => )
-        //         return _item.orderID === productData[idx]
-        //     })
-        // })
-        // console.log('====================================');
-        // console.log(itemsSelected);
-        // console.log('====================================');
-
-    }
-
     render() {
         const { ordersReceivedList, navigation } = this.props;
         return (
@@ -68,7 +33,7 @@ class DayEndSaleScreen extends React.Component {
                     {
                         ordersReceivedList.length === 0 ?
                             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 16 }}>No Sale Yet!!</Text>
+                                <Text style={{ fontSize: 16 }}>No Orders Yet!!</Text>
                             </View>
                             :
                             <SectionList
@@ -79,7 +44,18 @@ class DayEndSaleScreen extends React.Component {
                                     return (
                                         <View style={styles.dayHeadingContainer}>
                                             <Text style={styles.dayHeadingText}>
-                                                Total Orders Received For {slicingMomentDateUsingAt(section.date)}: {amountCheckerForDayEndSale(section.data)}
+                                                Total Sale For {slicingMomentDateUsingAt(section.date)}: Rs.{
+                                                    section.data.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).length === 0 ?
+                                                        0 :
+                                                        section.data.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).reduce((prevVal, curVal) => prevVal + curVal).toFixed(2)
+                                                }
+                                            </Text>
+                                            <Text style={styles.dayHeadingText}>
+                                                Total Orders Dispatched  {
+                                                    section.data.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).length === 0 ?
+                                                        0 :
+                                                        section.data.filter((item, _) => item.dispatched).length
+                                                }
                                             </Text>
                                         </View >
                                     )
@@ -91,17 +67,6 @@ class DayEndSaleScreen extends React.Component {
                                             index,
                                             issueDate: item.orderIssueDate
                                         })}
-
-                                    // dispatched: false,
-                                    // orderID,
-                                    // attachmentToOrder,
-                                    // orderIssueDate,
-                                    // shopDetails,
-                                    // orderDeliveryDate,
-                                    // selectedProducts,
-                                    // orderGeoLocation,
-                                    // orderLocationPicture,
-                                    // totalAmount
                                     >
                                         <View style={styles.btnContainer}>
                                             <View style={{ position: 'absolute' }}>
@@ -120,8 +85,13 @@ class DayEndSaleScreen extends React.Component {
 
                                                 </View>
                                             </View>
-                                            <View style={styles.info}>
-                                                <TabBarIcon name='md-information-circle' focused={true} />
+                                            <View style={{ position: 'absolute', top: 7.5, right: 10 }}>
+                                                {
+                                                    !item.dispatched ?
+                                                        <TabBarIcon name='md-information-circle' focused={true} />
+                                                        :
+                                                        <Entypo name="check" size={20} color={Colors.success} />
+                                                }
                                             </View>
                                         </View>
                                         <View style={Layout.tableRow}>
