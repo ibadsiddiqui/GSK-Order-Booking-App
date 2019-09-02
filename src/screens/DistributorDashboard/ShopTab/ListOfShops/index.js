@@ -1,6 +1,5 @@
-import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import {  Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import List from '../../../../components/common/List';
 import Colors from '../../../../constants/Colors';
@@ -8,25 +7,15 @@ import Layout from '../../../../constants/Layout';
 import { mapDispatchToProps, mapStateToProps } from '../../../../redux/dispatcher';
 
 class ListOfShops extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-            title: 'Registered Shops',
-            headerStyle: {
-                backgroundColor: Colors.primary,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-            headerRight:
-                <TouchableOpacity onPress={() => navigation.navigate('AddShop')}>
-                    <View style={{ width: 120, height: 40, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingHorizontal: 20 }}>
-                        <Ionicons name="ios-add" size={25} color={Colors.white} />
-                        <Text style={{ color: Colors.white, fontSize: 14, marginLeft: 10 }}>Add Shop</Text>
-                    </View>
-                </TouchableOpacity>
-        }
-
+    static navigationOptions = {
+        title: 'Registered Shops',
+        headerStyle: {
+            backgroundColor: Colors.primary,
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
     };
 
     onPress = (shopInfo) => {

@@ -1,6 +1,6 @@
-import { RESET_PRODUCTS_FOR_ORDER, ADD_ITEM, REDUCE_ITEM } from "../types";
-import ProductLists from "../../constants/ProductsList";
 import { addItem, reduceItem } from "../../commons/utils";
+import ProductLists from "../../constants/ProductsList";
+import { ADD_ITEM, REDUCE_ITEM, RESET_PRODUCTS_FOR_ORDER } from "../types";
 
 const initialState = {
     productLists: [...ProductLists]
