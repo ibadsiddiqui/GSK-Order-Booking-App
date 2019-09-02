@@ -1,12 +1,13 @@
+import { Entypo, Foundation } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
+import Colors from '../constants/Colors';
+import DayEndSaleScreen from '../screens/DistributorDashboard/DayEndSale';
+import OrdersScreen from '../screens/DistributorDashboard/OrdersScreen';
 import ProductListScreen from '../screens/DistributorDashboard/ProductsTab/ProductsList';
 import ListOfShops from '../screens/DistributorDashboard/ShopTab/ListOfShops';
-import { Entypo } from '@expo/vector-icons';
-import Colors from '../constants/Colors';
-import OrdersScreen from '../screens/DistributorDashboard/OrdersScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -32,12 +33,7 @@ ShopsStack.navigationOptions = {
 
 ShopsStack.path = '';
 
-const SettingsStack = createStackNavigator(
-  {
-    Settings: OrdersScreen,
-  },
-  config
-);
+
 
 const ProductsStack = createStackNavigator(
   {
@@ -55,6 +51,13 @@ ProductsStack.navigationOptions = {
 
 ProductsStack.path = '';
 
+const SettingsStack = createStackNavigator(
+  {
+    Settings: OrdersScreen,
+  },
+  config
+);
+
 SettingsStack.navigationOptions = {
   // tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
@@ -64,12 +67,28 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = '';
 
+const DayEndSaleStack = createStackNavigator(
+  {
+    DayEndSale: DayEndSaleScreen,
+  },
+  config
+);
+
+DayEndSaleStack.navigationOptions = {
+  // tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <Foundation name="burst-sale" color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+      size={26} />
+  ),
+};
+
+DayEndSaleStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   ShopsStack,
-//   AddOrderStack,
   ProductsStack,
   SettingsStack,
+  DayEndSaleStack,
 }, {
     tabBarOptions: {
       showLabel: false

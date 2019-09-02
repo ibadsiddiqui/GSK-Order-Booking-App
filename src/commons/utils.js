@@ -1,9 +1,9 @@
+import * as DocumentPicker from 'expo-document-picker';
+import _ from 'lodash';
+import moment from 'moment';
 import React from 'react';
 import { Picker } from 'react-native';
-import * as DocumentPicker from 'expo-document-picker';
-import _ from 'lodash'
 
-import moment from 'moment'
 export const _keyExtractor = (item, index) => {
     return item.id;
 };
@@ -84,9 +84,10 @@ export function returnEmptyIfNull(val) {
 
 
 export function amountCheckerForDayEndSale(array) {
-    if (array.filter((_item, _index) => _item.dispatched).length === 0)
+    if (array.map((_item, _index) => _item.data).length === 0)
         return 0
     else {
-        return array.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).reduce((prevVal, curVal) => prevVal + curVal).toFixed(2)
+        // return array.filter((item, _) => item.dispatched).map((item, _) => item.totalAmount).reduce((prevVal, curVal) => prevVal + curVal).toFixed(2)
+        return array.map((item, _) => item.data).length
     }
 }
