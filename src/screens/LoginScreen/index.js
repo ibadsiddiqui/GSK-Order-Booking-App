@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Dimensions, Text } from "react-native"
-import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from '../../redux/dispatcher';
-import Colors from '../../constants/Colors';
+import { Dimensions, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import Colors from '../../constants/Colors';
+import { mapDispatchToProps, mapStateToProps } from '../../redux/dispatcher';
 const { width, height } = Dimensions.get('window')
 class LoginScreen extends React.Component {
     constructor(props, context) {
@@ -53,7 +53,7 @@ const styles = {
     circleContainer: {
         elevation: 10,
         width: width * 0.6,
-        height: height * 0.3,
+        height: width * 0.6,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',

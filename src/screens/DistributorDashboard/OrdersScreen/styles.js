@@ -14,6 +14,7 @@ const styles = {
     dayHeadingText: {
         fontSize: 14,
         color: "#8B87B3",
+        fontWeight: 'bold',
         marginHorizontal: 10,
     },
     btnContainer: { ...Layout.tableRow, marginTop: 10 },

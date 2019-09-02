@@ -1,26 +1,24 @@
-import React from 'react';
-import { View, Text, SectionList, Dimensions } from 'react-native'
-import Colors from '../../../constants/Colors';
-import { mapStateToProps, mapDispatchToProps } from '../../../redux/dispatcher';
-import { connect } from 'react-redux'
-import { _keyExtractor, slicingMomentDateUsingAt, amountCheckerForDayEndSale } from '../../../commons/utils';
-import styles from './styles';
 import { Entypo } from '@expo/vector-icons';
+import React from 'react';
+import { Dimensions, SectionList, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { connect } from 'react-redux';
+import { amountCheckerForDayEndSale, slicingMomentDateUsingAt, _keyExtractor } from '../../../commons/utils';
 import TabBarIcon from '../../../components/TabBarIcon';
+import Colors from '../../../constants/Colors';
 import Layout from '../../../constants/Layout';
+import { mapDispatchToProps, mapStateToProps } from '../../../redux/dispatcher';
+import styles from './styles';
 
 const { width, height } = Dimensions.get('window')
 
 class OrdersList extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-            title: 'Orders Received',
-            headerStyle: {
-                backgroundColor: Colors.primary,
-            },
-            headerTintColor: '#fff',
-        };
+    static navigationOptions = {
+        title: 'Orders Received',
+        headerStyle: {
+            backgroundColor: Colors.primary,
+        },
+        headerTintColor: '#fff',
     }
 
     onPress = (shopInfo) => {
@@ -43,20 +41,22 @@ class OrdersList extends React.Component {
                                 sections={ordersReceivedList}
                                 keyExtractor={_keyExtractor}
                                 renderSectionHeader={({ section, }) => {
-                                    
                                     return (
                                         <View style={styles.dayHeadingContainer}>
                                             <Text style={styles.dayHeadingText}>
-                                                Total Sale For {slicingMomentDateUsingAt(section.date)}:
-                                                PKR {amountCheckerForDayEndSale(section.data)}
+                                                Total Orders Received For {slicingMomentDateUsingAt(section.date)}: {amountCheckerForDayEndSale(section.data)}
                                             </Text>
                                         </View >
                                     )
                                 }}
                                 renderItem={({ item, index }) =>
                                     <TouchableOpacity style={Layout.table}
-                                        onPress={() => navigation.navigate('OrderInfo', { order: item })}
-                                        
+                                        onPress={() => navigation.navigate('OrderInfo', {
+                                            order: item,
+                                            index,
+                                            issueDate: item.orderIssueDate
+                                        })}
+
                                     // dispatched: false,
                                     // orderID,
                                     // attachmentToOrder,
