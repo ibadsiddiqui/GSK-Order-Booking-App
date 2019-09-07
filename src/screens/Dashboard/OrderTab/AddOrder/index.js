@@ -15,6 +15,7 @@ import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
+import AddOrderTabRows from "../../../../components/screen/AddOrder/Rows";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
@@ -70,22 +71,14 @@ class AddNewOrder extends React.Component {
     }
 
     render() {
-        const { orderIssueDate, orderDeliveryDate, selectedProducts, shopDetails, navigation } = this.props;
+        const { orderIssueDate, orderDeliveryDate, totalAmount, selectedProducts, shopDetails, navigation } = this.props;
         return (
             <View style={styles.container}>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
-                        <View style={Layout.tableRow}>
-                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
-                                <Ionicons name="ios-wallet" color={Colors.primary} size={26} />
-                            </View>
-                            <View style={[Layout.tableCell, styles.labelStyle]}>
-                                <Text style={{ fontSize: 14 }}>Total Amount</Text>
-                            </View>
-                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
-                                <Text>PKR: {this.props.totalAmount.toFixed(2)}</Text>
-                            </View>
-                        </View>
+                        <AddOrderTabRows label="Total Amount" iconName="ios-wallet">
+                            <Text>{totalAmount.toFixed(2)}</Text>
+                        </AddOrderTabRows>
                         <TouchableOpacity onPress={() => navigation.navigate('AddShopToOrder')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
                                 <TabBarIcon name="ios-calendar" focused={true} />
@@ -108,56 +101,32 @@ class AddNewOrder extends React.Component {
                                     </View>
                             }
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this._setDateForOrder('issue')} style={[Layout.tableRow, { marginTop: 20 }]}>
-                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
-                                <TabBarIcon name="ios-calendar" focused={true} />
-                            </View>
-                            <View style={[Layout.tableCell, styles.labelStyle]}>
-                                <Text style={{ fontSize: 14 }}>Issue Date: </Text>
-                            </View>
-                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
-                                <View >
-                                    <Text>{orderIssueDate}</Text>
-                                </View>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this._setDateForOrder('delivery')}
-                            style={[Layout.tableRow, { marginTop: 20 }]}
+                        <AddOrderTabRows onPress={() => this._setDateForOrder('issue')}
+                            label="Issue Date: " iconName="ios-calendar"
+                            iconType="TabBarIcon"
                         >
-                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
-                                <TabBarIcon name="ios-calendar" focused={true} />
-                            </View>
-                            <View style={[Layout.tableCell, styles.labelStyle]}>
-                                <Text style={{ fontSize: 14 }}>Delivery Date: </Text>
-                            </View>
-                            <View style={[Layout.tableCell, styles.datePickerBtn]}>
-                                <Text>{orderDeliveryDate}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AddProductToOrder')}
-                            style={[Layout.tableRow, { marginTop: 20 }]}
+                            <Text>{orderIssueDate}</Text>
+                        </AddOrderTabRows>
+
+                        <AddOrderTabRows onPress={() => this._setDateForOrder('delivery')}
+                            iconName="ios-calendar" label="Delivery Date: "
+                            iconType="TabBarIcon"
                         >
-                            <View style={[Layout.tableCell, styles.leftIconStyle]}>
-                                <MaterialCommunityIcons name="cards" color={Colors.tintColor} size={30} />
-                            </View>
-                            <View style={[Layout.tableCell, styles.labelStyle]}>
-                                <Text style={{ fontSize: 14 }}>Pick Products:</Text>
-                            </View>
-                            <View style={[Layout.tableCell, styles.itemSelected]}>
-                                {
-                                    selectedProducts.length === 0 ?
-                                        <Feather name="chevrons-right" color={Colors.tintColor} size={30} /> :
-                                        <Text style={{ fontSize: 14 }}>Total Items: {selectedProducts.length}</Text>
-                                }
-                            </View>
-                        </TouchableOpacity>
-                        <View style={[Layout.tableRow, { marginTop: 20 }]}>
-                            <View style={[Layout.tableCell, { flex: 0.35, paddingLeft: 12.5 }]}>
-                                <AntDesign name="picture" color={Colors.tintColor} size={30} />
-                            </View>
-                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
-                                <Text style={{ fontSize: 14 }}>Add Picture: </Text>
-                            </View>
+                            <Text>{orderDeliveryDate}</Text>
+                        </AddOrderTabRows>
+                        <AddOrderTabRows onPress={() => navigation.navigate('AddProductToOrder')}
+                            iconName="cards" label="Pick Products: "
+                            iconType="MaterialCommunityIcons"
+                        >
+                            {
+                                selectedProducts.length === 0 ?
+                                    <Feather name="chevrons-right" color={Colors.tintColor} size={30} /> :
+                                    <Text style={{ fontSize: 14 }}>Total Items: {selectedProducts.length}</Text>
+                            }
+                        </AddOrderTabRows>
+                        <AddOrderTabRows onPress iconType="AntDesign"
+                            iconName="picture" label="Add Picture: "
+                        >
                             {
                                 _.isEmpty(this.props.orderLocationPicture) ?
                                     <View style={{ flex: 0.6, flexDirection: 'row' }}>
@@ -191,15 +160,11 @@ class AddNewOrder extends React.Component {
                                         </View>
                                     </View>
                             }
-                        </View>
+                        </AddOrderTabRows>
                         <DiscountPicker {...this.props} />
-                        <View style={[Layout.tableRow]}>
-                            <View style={[Layout.tableCell, styles.leftIconStyle, { paddingTop: 5 }]}>
-                                <FontAwesome name="location-arrow" color={Colors.tintColor} size={30} />
-                            </View>
-                            <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5, paddingTop: 10 }]}>
-                                <Text style={{ fontSize: 14 }}>Pick Location: </Text>
-                            </View>
+                        <AddOrderTabRows onPress iconType="FontAwesome"
+                            iconName="location-arrow" label="Add Picture: "
+                        >
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', paddingRight: 20 }]}>
                                 <TouchableOpacity onPress={this._navigateToMap}>
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -212,10 +177,9 @@ class AddNewOrder extends React.Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
-                        </View>
+                        </AddOrderTabRows>
                     </ScrollView>
                 </View>
-
                 <View style={{ position: 'absolute', left: 10, bottom: 5, elevation: 10 }}>
                     <TouchableOpacity onPress={this.pickDocumentForOrder}>
                         <View style={[styles.submitBtn, { width: 50, backgroundColor: this.props.attachmentToOrder == "" ? Colors.primary : Colors.white }]}>
