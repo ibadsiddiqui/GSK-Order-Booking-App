@@ -29,7 +29,12 @@
       "bundleIdentifier": "com.ibad.GSKApp"
     },
     "android": {
-      "package": "com.ibad.GSKApp"
+      "package": "com.ibad.GSKApp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDgVapRiIw_sh1zoxcouyP_Fvlbqk35H5Q"
+        }
+      }
     }
   }
 }
