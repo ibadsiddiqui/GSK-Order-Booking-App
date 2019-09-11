@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Text, View } from "react-native";
+import { Dimensions, Image, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import Colors from '../../constants/Colors';
@@ -25,9 +25,9 @@ class LoginScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.circleContainer}>
-                    <Text style={styles.heading}>GSK</Text>
-                    <Text style={styles.heading}>LOGIN:</Text>
+                    <Image source={require('./../../assets/images/gsk-logo.jpg')} style={{ width: width * 0.9, height: height * 0.21 }} />
                 </View>
+                <Text style={{ color: Colors.heading, fontSize: 22, textAlign: 'center', marginTop: 50 }}>Login As:</Text>
                 <View style={styles.subContainer}>
                     <TouchableOpacity style={styles.btn} onPress={this.goToDistributorDashboard}>
                         <View style={styles.btnContainer}>
@@ -52,12 +52,13 @@ const styles = {
     },
     circleContainer: {
         elevation: 10,
-        width: width * 0.6,
-        height: width * 0.6,
+        // width: width * 0.6,
+        // height: width * 0.6,
+        paddingHorizontal: 20,
         alignSelf: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: width * 0.3, backgroundColor: Colors.black,
+        // borderRadius: width * 0.3, backgroundColor: Colors.black,
     },
     heading: {
         fontSize: 22,
@@ -66,7 +67,6 @@ const styles = {
         textAlignVertical: 'center'
     },
     subContainer: {
-        marginTop: 50,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
@@ -79,14 +79,15 @@ const styles = {
         height: height * 0.1,
         borderWidth: 1,
         borderColor: 'transparent',
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.primaryBtn,
         borderRadius: 10
     },
     btnText: {
         textAlign: 'center',
         color: Colors.white,
         justifyContent: 'center',
-        fontSize: 17
+        fontSize: 17,
+        // fontWeight: '700'
     }
 }
 
