@@ -1,17 +1,16 @@
 import { AntDesign } from "@expo/vector-icons";
-import _ from 'lodash';
 import React from 'react';
-import { Text, View, Picker } from 'react-native';
+import { Picker, Text, View } from 'react-native';
+import { addPriceWithQuantity, generateRange, getQuantity, getTradePrice } from "../../../../commons/utils";
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
-import { generateRange, getQuantity, getTradePrice, addPriceWithQuantity } from "../../../../commons/utils";
 
 const DiscountPicker = (props) => {
     const { discount } = props;
     return (
         <View style={[Layout.tableRow, { marginTop: 20 }]}>
             <View style={[Layout.tableCell, { flex: 0.35, paddingLeft: 12.5 }]}>
-                <AntDesign name="picture" color={Colors.tintColor} size={30} />
+                <AntDesign name="picture" color={Colors.tabIconDefault} size={30} />
             </View>
             <View style={[Layout.tableCell, { flex: 2, alignSelf: 'flex-start', padding: 5 }]}>
                 <Text style={{ fontSize: 14 }}>Add Discount: </Text>

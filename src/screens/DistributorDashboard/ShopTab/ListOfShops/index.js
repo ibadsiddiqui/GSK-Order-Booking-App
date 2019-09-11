@@ -10,7 +10,7 @@ class ListOfShops extends React.Component {
     static navigationOptions = {
         title: 'Registered Shops',
         headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.primaryBtn,
         },
         headerTintColor: '#fff',
         headerTitleStyle: {

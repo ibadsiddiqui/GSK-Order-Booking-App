@@ -12,7 +12,7 @@ class ListOfShops extends React.Component {
         return {
             title: 'Registered Shops',
             headerStyle: {
-                backgroundColor: Colors.primary,
+                backgroundColor: Colors.primaryBtn,
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

@@ -6,10 +6,6 @@ import Colors from '../../constants/Colors';
 import { mapDispatchToProps, mapStateToProps } from '../../redux/dispatcher';
 const { width, height } = Dimensions.get('window')
 class LoginScreen extends React.Component {
-    constructor(props, context) {
-        super(props, context);
-
-    }
 
     goToBookerDashboard = () => {
         this.props.changeUser("BOOKER");
@@ -27,7 +23,7 @@ class LoginScreen extends React.Component {
                 <View style={styles.circleContainer}>
                     <Image source={require('./../../assets/images/gsk-logo.jpg')} style={{ width: width * 0.9, height: height * 0.21 }} />
                 </View>
-                <Text style={{ color: Colors.heading, fontSize: 22, textAlign: 'center', marginTop: 50 }}>Login As:</Text>
+                <Text style={{ color: Colors.heading, fontSize: 22, textAlign: 'center', marginTop: 50 }}>Login as:</Text>
                 <View style={styles.subContainer}>
                     <TouchableOpacity style={styles.btn} onPress={this.goToDistributorDashboard}>
                         <View style={styles.btnContainer}>
@@ -52,13 +48,9 @@ const styles = {
     },
     circleContainer: {
         elevation: 10,
-        // width: width * 0.6,
-        // height: width * 0.6,
         paddingHorizontal: 20,
         alignSelf: 'center',
-        // alignItems: 'center',
         justifyContent: 'center',
-        // borderRadius: width * 0.3, backgroundColor: Colors.black,
     },
     heading: {
         fontSize: 22,
@@ -87,7 +79,6 @@ const styles = {
         color: Colors.white,
         justifyContent: 'center',
         fontSize: 17,
-        // fontWeight: '700'
     }
 }
 

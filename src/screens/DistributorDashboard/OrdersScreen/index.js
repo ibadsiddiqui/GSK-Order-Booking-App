@@ -16,7 +16,7 @@ class OrdersList extends React.Component {
     static navigationOptions = {
         title: 'Orders Received',
         headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.primaryBtn,
         },
         headerTintColor: '#fff',
     }

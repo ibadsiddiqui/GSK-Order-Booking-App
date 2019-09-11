@@ -17,7 +17,7 @@ class OrdersList extends React.Component {
         return {
             title: 'My Orders',
             headerStyle: {
-                backgroundColor: Colors.primary,
+                backgroundColor: Colors.primaryBtn,
             },
             headerTintColor: '#fff',
         };

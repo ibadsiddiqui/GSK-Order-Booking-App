@@ -1,13 +1,13 @@
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
+import Colors from '../constants/Colors';
+import OrdersScreen from '../screens/Dashboard/OrdersScreen';
 import AddNewOrder from '../screens/Dashboard/OrderTab/AddOrder';
 import ProductListScreen from '../screens/Dashboard/ProductsTab/ProductsList';
 import ListOfShops from '../screens/Dashboard/ShopTab/ListOfShops';
-import { Entypo } from '@expo/vector-icons';
-import Colors from '../constants/Colors';
-import OrdersScreen from '../screens/Dashboard/OrdersScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -24,7 +24,7 @@ const ShopsStack = createStackNavigator(
 ShopsStack.navigationOptions = {
   // tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
-    <Entypo color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+    <Entypo color={focused ? Colors.primaryBtn : Colors.tabIconDefault}
       name="shop"
       size={26}
     />
@@ -40,6 +40,20 @@ const SettingsStack = createStackNavigator(
   config
 );
 
+SettingsStack.navigationOptions = {
+  // tabBarLabel: 'Settings',
+  tabBarIcon: ({ focused }) => (
+    <Ionicons
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      size={26}
+      style={{ marginBottom: -3 }}
+      color={focused ? Colors.primaryBtn : Colors.tabIconDefault} />
+  ),
+};
+
+SettingsStack.path = '';
+
+
 const AddOrderStack = createStackNavigator(
   {
 
@@ -51,7 +65,12 @@ const AddOrderStack = createStackNavigator(
 AddOrderStack.navigationOptions = {
   // tabBarLabel: null,
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name="ios-add-circle-outline" />
+    <Ionicons
+      name="ios-add-circle-outline"
+      size={26}
+      style={{ marginBottom: -3 }}
+      color={focused ? Colors.primaryBtn : Colors.tabIconDefault} />
+    // <TabBarIcon focused={focused} name="ios-add-circle-outline" />
   ),
 };
 
@@ -80,26 +99,16 @@ ProductsStack.navigationOptions = {
 
 ProductsStack.path = '';
 
-SettingsStack.navigationOptions = {
-  // tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
-  ),
-};
-
-SettingsStack.path = '';
-
-
 const tabNavigator = createBottomTabNavigator({
   ShopsStack,
   AddOrderStack,
   ProductsStack,
   SettingsStack,
 }, {
-    tabBarOptions: {
-      showLabel: false
-    }
-  });
+  tabBarOptions: {
+    showLabel: false
+  }
+});
 
 tabNavigator.path = '';
 

@@ -12,7 +12,7 @@ class AddShopScreen extends Component {
         return {
             title: 'Add Shop Details',
             headerStyle: {
-                backgroundColor: Colors.primary,
+                backgroundColor: Colors.primaryBtn,
             },
             headerTintColor: '#fff',
             headerLeft: <HeaderLeftBtn onPress={() => navigation.navigate('ShopList')} />,
@@ -53,19 +53,20 @@ class AddShopScreen extends Component {
                         </Item>
                         <Item floatingLabel >
                             <Label>Enter Shop Owner Cell#</Label>
-                            <Input onChangeText={(txt) => this.props.addShopOwnerID(txt)} />
+                            <Input onChangeText={(txt) => this.props.addShopOwnerID(txt)} keyboardType="number-pad" />
                         </Item>
                         <Item floatingLabel last={true}>
                             <Label>Enter Shop Owner ID</Label>
-                            <Input onChangeText={(txt) => this.props.addShopOwnerCellNumber(txt)} />
+                            <Input onChangeText={(txt) => this.props.addShopOwnerCellNumber(txt)} keyboardType="number-pad" />
                         </Item>
-                        <Button info style={{
+                        <Button style={{
                             alignItems: 'center',
                             justifyContent: 'center',
                             width: 150,
                             alignSelf: 'center',
                             marginTop: 100,
                             borderRadius: 10,
+                            backgroundColor: Colors.heading
                         }}
                             onPress={this.onSubmit}>
                             <Text style={{ fontSize: 17, textAlign: 'center', color: Colors.white }}>Submit Details</Text>

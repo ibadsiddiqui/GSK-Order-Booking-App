@@ -1,12 +1,12 @@
 import { Feather, Ionicons } from "@expo/vector-icons";
 import React from 'react';
-import { Dimensions, FlatList, Text, View, BackHandler } from 'react-native';
+import { BackHandler, Dimensions, FlatList, Text, View } from 'react-native';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 import { _keyExtractor } from "../../commons/utils";
-import { mapDispatchToProps, mapStateToProps } from "../../redux/dispatcher";
-import Colors from "../../constants/Colors";
 import HeaderLeftBtn from "../../components/screen/AddProductToOrder/HeadeLeftBtn";
+import Colors from "../../constants/Colors";
+import { mapDispatchToProps, mapStateToProps } from "../../redux/dispatcher";
 import styles from "./styles";
 const { width } = Dimensions.get('window')
 
@@ -15,7 +15,7 @@ class AddProductToOrderScreen extends React.Component {
         return {
             title: 'Add Products',
             headerStyle: {
-                backgroundColor: Colors.primary,
+                backgroundColor: Colors.primaryBtn,
             },
             headerTintColor: '#fff',
             headerLeft: <HeaderLeftBtn onPress={() => navigation.navigate('AddNewOrder')} />,

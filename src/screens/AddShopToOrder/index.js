@@ -12,7 +12,7 @@ class AddShopToOrderScreen extends React.Component {
         return {
             title: 'Select Shop',
             headerStyle: {
-                backgroundColor: Colors.primary,
+                backgroundColor: Colors.primaryBtn,
             },
             headerTintColor: '#fff',
             headerLeft: <HeaderLeftBtn onPress={() => navigation.navigate('AddNewOrder')} />,

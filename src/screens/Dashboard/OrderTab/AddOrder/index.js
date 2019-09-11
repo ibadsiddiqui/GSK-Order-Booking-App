@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import uuid4 from 'uuid/v4';
 import { addPriceWithQuantity, getLocaleDateString, getQuantity, getTradePrice, pickDocument } from "../../../../commons/utils";
 import DiscountPicker from "../../../../components/screen/AddOrder/DiscountPicker";
+import AddOrderTabRows from "../../../../components/screen/AddOrder/Rows";
 import TabBarIcon from '../../../../components/TabBarIcon';
 import Colors from '../../../../constants/Colors';
 import Layout from '../../../../constants/Layout';
@@ -15,13 +16,12 @@ import { pickDateForOrder } from "../../../../helpers/DateHelpers";
 import { UploadImage } from "../../../../helpers/ImageHelper";
 import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatcher";
 import styles from "./styles";
-import AddOrderTabRows from "../../../../components/screen/AddOrder/Rows";
 
 class AddNewOrder extends React.Component {
     static navigationOptions = {
         title: 'Create Order',
         headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.primaryBtn,
         },
         headerTintColor: '#fff',
     };
@@ -81,7 +81,7 @@ class AddNewOrder extends React.Component {
                         </AddOrderTabRows>
                         <TouchableOpacity onPress={() => navigation.navigate('AddShopToOrder')} style={[Layout.tableRow, { marginTop: 20 }]}>
                             <View style={[Layout.tableCell, styles.leftIconStyle]}>
-                                <TabBarIcon name="ios-calendar" focused={true} />
+                                <TabBarIcon name="ios-calendar" />
                             </View>
                             <View style={[Layout.tableCell, styles.labelStyle]}>
                                 <Text style={{ fontSize: 14 }}>Customer Name: </Text>
@@ -89,9 +89,7 @@ class AddNewOrder extends React.Component {
                             {
                                 _.isEmpty(shopDetails) ?
                                     <View style={[Layout.tableCell, styles.datePickerBtn]}>
-                                        <View >
-                                            <Text>Select Name</Text>
-                                        </View>
+                                        <Text>Select Name</Text>
                                     </View>
                                     :
                                     <View style={[Layout.tableCell, styles.datePickerBtn]}>
@@ -120,7 +118,7 @@ class AddNewOrder extends React.Component {
                         >
                             {
                                 selectedProducts.length === 0 ?
-                                    <Feather name="chevrons-right" color={Colors.tintColor} size={30} /> :
+                                    <Feather name="chevrons-right" color={Colors.primaryBtn} size={30} /> :
                                     <Text style={{ fontSize: 14 }}>Total Items: {selectedProducts.length}</Text>
                             }
                         </AddOrderTabRows>
@@ -134,14 +132,14 @@ class AddNewOrder extends React.Component {
                                         <View style={[Layout.tableCell, styles.imageIcons]}>
                                             <TouchableOpacity onPress={() => this._selectImage('uploadphoto')}>
                                                 <View style={styles.iconBtnContainer}>
-                                                    <Ionicons name="ios-attach" size={25} color={Colors.primary} />
+                                                    <Ionicons name="ios-attach" size={25} color={Colors.primaryBtn} />
                                                 </View>
                                             </TouchableOpacity>
                                         </View>
                                         <View style={[Layout.tableCell, styles.imageIcons]}>
                                             <TouchableOpacity onPress={() => this._selectImage('takephoto')}>
                                                 <View style={styles.iconBtnContainer}>
-                                                    <Ionicons name="ios-camera" size={25} color={Colors.primary} />
+                                                    <Ionicons name="ios-camera" size={25} color={Colors.primaryBtn} />
                                                 </View>
                                             </TouchableOpacity>
                                         </View>
@@ -154,7 +152,7 @@ class AddNewOrder extends React.Component {
                                         <View style={{ alignItems: 'center', justifyContent: 'center', paddingRight: 5 }}>
                                             <TouchableOpacity onPress={this.props.resetOrderShopPicture}>
                                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                                                    <FontAwesome name="remove" size={20} color={Colors.primary} />
+                                                    <FontAwesome name="remove" size={20} color={Colors.primaryBtn} />
                                                 </View>
                                             </TouchableOpacity>
                                         </View>
@@ -170,7 +168,7 @@ class AddNewOrder extends React.Component {
                                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                                         {
                                             _.isEmpty(this.props.orderGeoLocation) ?
-                                                <Entypo name="location-pin" color={Colors.tintColor} size={30} />
+                                                <Entypo name="location-pin" color={Colors.primaryBtn} size={30} />
                                                 :
                                                 <Text style={{ width: 170, fontSize: 14, height: 40, textAlign: 'center', textAlignVertical: 'center' }}>{this.props.orderGeoLocation.name} {this.props.orderGeoLocation.street} {this.props.orderGeoLocation.postalCode}, {this.props.orderGeoLocation.city}, {this.props.orderGeoLocation.country}</Text>
                                         }
@@ -182,11 +180,11 @@ class AddNewOrder extends React.Component {
                 </View>
                 <View style={{ position: 'absolute', left: 10, bottom: 5, elevation: 10 }}>
                     <TouchableOpacity onPress={this.pickDocumentForOrder}>
-                        <View style={[styles.submitBtn, { width: 50, backgroundColor: this.props.attachmentToOrder == "" ? Colors.primary : Colors.white }]}>
+                        <View style={[styles.submitBtn, { width: 50, backgroundColor: Colors.white }]}>
                             {
                                 _.isEmpty(this.props.attachmentToOrder) ?
-                                    <MaterialCommunityIcons name="file-document-box-multiple-outline" color='white' size={30} />
-                                    : <MaterialIcons name="cancel" color={Colors.primary} size={50} />
+                                    <MaterialCommunityIcons name="file-document-box-multiple-outline" color={Colors.primaryBtn} size={30} />
+                                    : <MaterialIcons name="cancel" color={Colors.primaryBtn} size={50} />
                             }
                         </View>
                     </TouchableOpacity>
@@ -226,7 +224,7 @@ class AddNewOrder extends React.Component {
                         totalAmount
                     }]
                 });
-                await OrdersController.resetOrderdetails(this.props);
+                OrdersController.resetOrderdetails(this.props);
             } else {
                 await addShopOrderToList(shopDetails.id, orderID)
                 await addOrderToReceivedOrderList(getLocaleDateString(orderIssueDate), {
@@ -241,7 +239,7 @@ class AddNewOrder extends React.Component {
                     orderGeoLocation,
                     orderLocationPicture
                 });
-                await OrdersController.resetOrderdetails(this.props);
+                OrdersController.resetOrderdetails(this.props);
             }
         }
     }

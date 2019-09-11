@@ -10,7 +10,7 @@ class ProductListScreen extends React.Component {
     static navigationOptions = {
         title: 'Products List by GSK',
         headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.primaryBtn,
         },
         headerTintColor: '#fff',
         headerTitleStyle: {

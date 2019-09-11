@@ -1,8 +1,7 @@
-import { Entypo, Foundation } from '@expo/vector-icons';
+import { Entypo, Foundation, Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
-import TabBarIcon from '../components/TabBarIcon';
 import Colors from '../constants/Colors';
 import DayEndSaleScreen from '../screens/DistributorDashboard/DayEndSale';
 import OrdersScreen from '../screens/DistributorDashboard/OrdersScreen';
@@ -24,7 +23,7 @@ const ShopsStack = createStackNavigator(
 ShopsStack.navigationOptions = {
   // tabBarLabel: 'Links',
   tabBarIcon: ({ focused }) => (
-    <Entypo color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+    <Entypo color={focused ? Colors.primaryBtn : Colors.tabIconDefault}
       name="shop"
       size={26}
     />
@@ -45,7 +44,11 @@ const ProductsStack = createStackNavigator(
 ProductsStack.navigationOptions = {
   // tabBarLabel: 'Products',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name="ios-list" />
+    // <TabBarIcon focused={focused} name="ios-list" />
+    <Ionicons name="ios-list"
+      size={26} style={{ marginBottom: -3 }}
+      color={focused ? Colors.primaryBtn : Colors.tabIconDefault}
+    />
   ),
 };
 
@@ -61,7 +64,10 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   // tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <Ionicons name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      size={26} style={{ marginBottom: -3 }}
+      color={focused ? Colors.primaryBtn : Colors.tabIconDefault}
+    />
   ),
 };
 
@@ -75,10 +81,9 @@ const DayEndSaleStack = createStackNavigator(
 );
 
 DayEndSaleStack.navigationOptions = {
-  // tabBarLabel: 'Settings',
   tabBarIcon: ({ focused }) => (
-    <Foundation name="burst-sale" color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
-      size={26} />
+    <Foundation name="burst-sale" color={focused ? Colors.primaryBtn : Colors.tabIconDefault}
+      size={30} />
   ),
 };
 
@@ -90,10 +95,10 @@ const tabNavigator = createBottomTabNavigator({
   SettingsStack,
   DayEndSaleStack,
 }, {
-    tabBarOptions: {
-      showLabel: false
-    }
-  });
+  tabBarOptions: {
+    showLabel: false
+  }
+});
 
 tabNavigator.path = '';
 

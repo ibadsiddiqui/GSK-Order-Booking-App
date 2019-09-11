@@ -53,7 +53,7 @@ const styles = {
     submitBtn: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.primaryBtn,
         width: 110,
         height: 50,
         borderRadius: 30,

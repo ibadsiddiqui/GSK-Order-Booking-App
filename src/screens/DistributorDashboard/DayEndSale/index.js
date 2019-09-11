@@ -16,7 +16,7 @@ class DayEndSaleScreen extends React.Component {
     static navigationOptions = {
         title: 'Sale',
         headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: Colors.primaryBtn,
         },
         headerTintColor: '#fff',
     }
