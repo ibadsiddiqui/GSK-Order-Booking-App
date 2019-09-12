@@ -161,7 +161,7 @@ class AddNewOrder extends React.Component {
                         </AddOrderTabRows>
                         <DiscountPicker {...this.props} />
                         <AddOrderTabRows onPress iconType="FontAwesome"
-                            iconName="location-arrow" label="Add Picture: "
+                            iconName="location-arrow" label="Add Location: "
                         >
                             <View style={[Layout.tableCell, { alignItems: 'flex-end', paddingRight: 20 }]}>
                                 <TouchableOpacity onPress={this._navigateToMap}>
