@@ -21,7 +21,8 @@ class LoginScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.circleContainer}>
-                    <Image source={require('./../../assets/images/gsk-logo.jpg')} style={{ width: width * 0.9, height: height * 0.21 }} />
+                    <Image source={require('./../../assets/images/gsk-logo.jpg')}
+                     style={{ width: width * 0.9, height: width * 0.45 }} />
                 </View>
                 <Text style={{ color: Colors.heading, fontSize: 22, textAlign: 'center', marginTop: 50 }}>Login as:</Text>
                 <View style={styles.subContainer}>

@@ -63,19 +63,20 @@ class MapViewScreen extends React.Component {
 
 
     _getLocationAsync = async () => {
-        await getLocationPermission();
+        let locPerm = await getLocationPermission();
         let serviceStatus = await checkLocationService()
         let location;
-        if (serviceStatus) {
+        if (serviceStatus && locPerm) {
             location = await Location.getCurrentPositionAsync({});
-            await this._onRegionChange(location.coords)
+            this._onRegionChange(location.coords)
             this.map.setCamera({ center: { ...this.state.region }, zoom: 17.5 })
         } else {
+             await getLocationPermission();
             const status = await requestLocationService();
             if (status === "granted" || status) {
                 location = await Location.getCurrentPositionAsync({});
                 this._onRegionChange(location.coords)
-                await this.map.setCamera({ center: { ...this.state.region }, zoom: 17.5 })
+                this.map.setCamera({ center: { ...this.state.region }, zoom: 17.5 })
             } else return;
         }
 
