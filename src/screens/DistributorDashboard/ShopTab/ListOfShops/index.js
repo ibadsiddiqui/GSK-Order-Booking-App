@@ -26,6 +26,10 @@ class ListOfShops extends React.Component {
         const { registeredListOfShops } = this.props;
         return (
             <View style={styles.container}>
+                <View style={{ height: 100, width: "100%", paddingTop: 10, alignItems: "center", 
+                justifyContent: "center", backgroundColor: Colors.primaryBtn, flexDirection: "row" }}>
+                    <Text style={{ color: "#fff" }}>Registered Shops</Text>
+                </View>
                 <View style={{ flex: 5 }}>
                     {
                         registeredListOfShops.length === 0 ?

@@ -8,35 +8,25 @@ import Layout from '../../../../constants/Layout';
 import { mapDispatchToProps, mapStateToProps } from '../../../../redux/dispatcher';
 
 class ListOfShops extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-            title: 'Registered Shops',
-            headerStyle: {
-                backgroundColor: Colors.primaryBtn,
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
-            headerRight:
-                <TouchableOpacity onPress={() => navigation.navigate('AddShop')}>
-                    <View style={{ width: 120, height: 40, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingHorizontal: 20 }}>
-                        <Ionicons name="ios-add" size={25} color={Colors.white} />
-                        <Text style={{ color: Colors.white, fontSize: 14, marginLeft: 10 }}>Add Shop</Text>
-                    </View>
-                </TouchableOpacity>
-        }
-
-    };
 
     onPress = (shopInfo) => {
         return this.props.navigation.navigate('ShopInfo', { shopInfo: shopInfo })
     }
 
     render() {
-        const { registeredListOfShops } = this.props;
+        const { registeredListOfShops,navigation } = this.props;
         return (
             <View style={styles.container}>
+                <View style={{ height: 100, width: "100%", paddingTop: 10, alignItems: "center", justifyContent: "space-between", backgroundColor: Colors.primaryBtn, flexDirection: "row" }}>
+                    <View style={{ width: 100 }}></View>
+                    <Text style={{ color: "#fff" }}>Registered Shops</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('AddShop')}>
+                        <View style={{ width: 120, height: 40, justifyContent: 'center', alignItems: 'center', flexDirection: 'row', paddingHorizontal: 20 }}>
+                            <Ionicons name="ios-add" size={25} color={Colors.white} />
+                            <Text style={{ color: Colors.white, fontSize: 14, marginLeft: 10 }}>Add Shop</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
                 <View style={{ flex: 5 }}>
                     {
                         registeredListOfShops.length === 0 ?

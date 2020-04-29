@@ -7,7 +7,7 @@ import SectionHeader from '../../components/common/SectionListComponents/Section
 export default class ShopInfoScreen extends React.Component {
 
     render() {
-        const shopInfo = this.props.navigation.getParam("shopInfo", {});
+        const shopInfo = this.props.route.params.shopInfo;
         const sections = [
             { data: [{ value: shopInfo.id }], title: 'Shop ID:' },
             { data: [{ value: shopInfo.shopName }], title: 'Shop Name:' },

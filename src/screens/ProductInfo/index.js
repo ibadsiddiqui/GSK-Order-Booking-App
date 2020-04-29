@@ -8,7 +8,7 @@ import SectionHeader from '../../components/common/SectionListComponents/Section
 export default class ProductInfo extends React.Component {
 
     render() {
-        const productInfo = this.props.navigation.getParam("productInfo", {});
+        const productInfo = this.props.route.params.productInfo;
         const sections = [
             { data: [{ value: productInfo.id }], title: 'Product ID:' },
             { data: [{ value: productInfo.name }], title: 'Product Name:' },

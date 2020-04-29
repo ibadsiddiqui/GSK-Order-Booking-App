@@ -1,7 +1,6 @@
 import { combineReducers, createStore } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
-import storage from 'redux-persist/lib/storage'
-
+import {AsyncStorage} from 'react-native';
 import OrdersReducer from './../reducers/OrdersReducer';
 import ProductsReducer from "../reducers/ProductsReducer";
 import ShopsReducer from "../reducers/ShopsReducer";
@@ -9,7 +8,7 @@ import UserReducer from "../reducers/UserReducer";
 
 const persistConfig = {
   key: 'root',
-  storage,
+  storage: AsyncStorage,
 }
 
 const rootReducer = combineReducers({

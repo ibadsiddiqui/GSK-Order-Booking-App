@@ -13,15 +13,6 @@ import styles from './styles';
 const { width, height } = Dimensions.get('window')
 
 class OrdersList extends React.Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-            title: 'My Orders',
-            headerStyle: {
-                backgroundColor: Colors.primaryBtn,
-            },
-            headerTintColor: '#fff',
-        };
-    }
 
     onPress = (shopInfo) => {
         return this.props.navigation.navigate('ShopInfo', { shopInfo: shopInfo })
@@ -31,6 +22,12 @@ class OrdersList extends React.Component {
         const { ordersReceivedList, navigation } = this.props;
         return (
             <View style={styles.container}>
+                <View style={{
+                    height: 100, width: "100%", paddingTop: 10, alignItems: "center", justifyContent: "center",
+                    backgroundColor: Colors.primaryBtn,
+                }}>
+                    <Text style={{ color: "#fff" }}>My Orders</Text>
+                </View>
                 <View style={{ flex: 5 }}>
                     {
                         ordersReceivedList.length === 0 ?

@@ -42,6 +42,12 @@ class AddProductToOrderScreen extends React.Component {
         const { productLists } = this.props;
         return (
             <View style={styles.container}>
+                <View style={{
+                    height: 100, width: "100%", paddingTop: 10, alignItems: "center", justifyContent: "center",
+                    backgroundColor: Colors.primaryBtn,
+                }}>
+                    <Text style={{ color: "#fff" }}>Add Products</Text>
+                </View>
                 <View style={{ flex: 8 }}>
                     <FlatList style={{ width }} data={productLists}
                         keyExtractor={_keyExtractor}

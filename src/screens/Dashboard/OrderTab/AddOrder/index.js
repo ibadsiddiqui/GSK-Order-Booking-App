@@ -4,7 +4,6 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
-import uuid4 from 'uuid/v4';
 import { addPriceWithQuantity, getLocaleDateString, getQuantity, getTradePrice, pickDocument } from "../../../../commons/utils";
 import DiscountPicker from "../../../../components/screen/AddOrder/DiscountPicker";
 import AddOrderTabRows from "../../../../components/screen/AddOrder/Rows";
@@ -18,13 +17,6 @@ import { mapDispatchToProps, mapStateToProps } from "../../../../redux/dispatche
 import styles from "./styles";
 
 class AddNewOrder extends React.Component {
-    static navigationOptions = {
-        title: 'Create Order',
-        headerStyle: {
-            backgroundColor: Colors.primaryBtn,
-        },
-        headerTintColor: '#fff',
-    };
 
     _setDateForOrder = async (key) => {
         const date = await pickDateForOrder();
@@ -74,6 +66,12 @@ class AddNewOrder extends React.Component {
         const { orderIssueDate, orderDeliveryDate, totalAmount, selectedProducts, shopDetails, navigation } = this.props;
         return (
             <View style={styles.container}>
+                <View style={{
+                    height: 100, width: "100%", paddingTop: 10, alignItems: "center", justifyContent: "center",
+                    backgroundColor: Colors.primaryBtn,
+                }}>
+                    <Text style={{ color: "#fff" }}>Create Order</Text>
+                </View>
                 <View style={Layout.table}>
                     <ScrollView style={styles.listContainer}>
                         <AddOrderTabRows label="Total Amount" iconName="ios-wallet">
@@ -202,7 +200,7 @@ class AddNewOrder extends React.Component {
     }
 
     submitOrder = async () => {
-        const orderID = uuid4()
+        const orderID = "uuid4()" + Math.random() + "jaksndjknad"
         const { addShopOrderToList, totalAmount, ordersReceivedList, attachmentToOrder, orderIssueDate, shopDetails, orderDeliveryDate, selectedProducts, orderGeoLocation, orderLocationPicture, } = this.props;
         if (orderIssueDate && shopDetails && orderDeliveryDate && selectedProducts && orderGeoLocation && orderLocationPicture) {
             const { addOrderToReceivedOrderList, createOrder, orderIssueDate, } = this.props;

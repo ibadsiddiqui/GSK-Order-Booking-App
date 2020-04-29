@@ -37,8 +37,8 @@ class OrderInfo extends React.Component {
     }
 
     render() {
-        const date = this.props.navigation.getParam("issueDate", {});
-        const _orderID = this.props.navigation.getParam("order", {}).orderID;
+        const date = this.props.route.params.issueDate;
+        const _orderID = this.props.route.params.order.orderID;
         const data = this.props.ordersReceivedList.find(x => x.date == date).data.find(x => x.orderID == _orderID);
         const { orderDeliveryDate, shopDetails, orderGeoLocation, dispatched, orderLocationPicture, selectedProducts, totalAmount } = data
         const quantity = selectedProducts.map(getQuantity);

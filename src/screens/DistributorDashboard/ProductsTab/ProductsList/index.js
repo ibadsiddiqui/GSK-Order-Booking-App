@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from "react-redux";
 import List from '../../../../components/common/List';
 import Colors from '../../../../constants/Colors';
@@ -25,6 +25,12 @@ class ProductListScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={{
+                    height: 100, width: "100%", paddingTop: 10, alignItems: "center",
+                    justifyContent: "center", backgroundColor: Colors.primaryBtn, flexDirection: "row"
+                }}>
+                    <Text style={{ color: "#fff" }}>Products List by GSK</Text>
+                </View>
                 <View style={{ flex: 5 }}>
                     <List type="Product" {...this.props} onPress={this.onPress} />
                 </View>

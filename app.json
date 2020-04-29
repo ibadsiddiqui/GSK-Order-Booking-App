@@ -1,9 +1,7 @@
 {
   "expo": {
-    "name": "GSK-Order-Booking-App",
-    "slug": "GSKApp",
-    "privacy": "public",
-    "sdkVersion": "34.0.0",
+    "name": "orderapp",
+    "slug": "orderapp",
     "platforms": [
       "ios",
       "android",
@@ -12,6 +10,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
+    "scheme": "myapp",
     "splash": {
       "image": "./src/assets/images/splash.png",
       "resizeMode": "contain",
@@ -22,11 +21,9 @@
     },
     "assetBundlePatterns": [
       "src/assets/images/*",
-      "src/assets/font/*"
-    ],
+      "src/assets/font/*"    ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.ibad.GSKApp"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.ibad.GSKApp",

@@ -1,8 +1,8 @@
 import { Button, Container, Content, Form, Input, Item, Label } from 'native-base';
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text,View } from 'react-native';
 import { connect } from 'react-redux';
-import uuid4 from 'uuid/v4';
+// import { v4 as uuid4 } from 'uuid';
 import HeaderLeftBtn from '../../components/screen/AddProductToOrder/HeadeLeftBtn';
 import Colors from '../../constants/Colors';
 import { mapDispatchToProps, mapStateToProps } from '../../redux/dispatcher';
@@ -30,7 +30,7 @@ class AddShopScreen extends Component {
         const { shopName, shopOwnerName,
             shopOwnerID, shopOwnerCellNumber } = this.props;
         this.props.addShopToRegisteredList({
-            id: uuid4(),
+            id: "uuid4()" + Math.random() + "jaksndjknad",
             shopName, shopOwnerName,
             shopOwnerID, shopOwnerCellNumber,
             orders: [],
@@ -41,6 +41,10 @@ class AddShopScreen extends Component {
     render() {
         return (
             <Container>
+                <View style={{ height: 100, width: "100%", paddingTop: 10, alignItems: "center",
+                 justifyContent: "center", backgroundColor: Colors.primaryBtn, flexDirection: "row" }}>
+                    <Text style={{ color: "#fff" }}>Add Shop Details</Text>
+                </View>
                 <Content style={{ padding: 10 }}>
                     <Form>
                         <Item floatingLabel>
