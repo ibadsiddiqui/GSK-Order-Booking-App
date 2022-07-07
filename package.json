@@ -28,7 +28,7 @@
     "expo-permissions": "~6.0.0",
     "expo-web-browser": "6.0.0",
     "firebase": "^6.4.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "native-base": "^2.13.5",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
